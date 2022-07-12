@@ -27,7 +27,7 @@ data "local_file" "htme_default_topics_drift_testing_incrementals_csv" {
 }
 
 data "local_file" "htme_default_topics_ris_csv" {
-  filename = "files/htme/htme_default_topics_ris/${var.htme_default_topics_ris_file_name[var.environment]}"
+  filename = "files/htme/htme_default_topics_ris/${var.htme_default_topics_ris_file_name}"
 }
 
 data "local_file" "wrapper_checker_script" {
