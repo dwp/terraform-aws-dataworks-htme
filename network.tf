@@ -1,3 +1,5 @@
+# This file needs to be outside the module and at the provider level (internal compute)
+
 resource "aws_subnet" "htme" {
   count = length(data.aws_availability_zones.available.names)
   cidr_block = cidrsubnet(

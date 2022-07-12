@@ -148,6 +148,11 @@ variable "s3_artefact_bucket_id" {
     type = string
 }
 
+variable "s3_artefact_bucket_arn" {
+    description = "The ARN of the artifact S3 bucket."
+    type = string
+}
+
 variable "htme_log_level" {
     description = "The log level of HTME."
     type = string
@@ -174,6 +179,11 @@ variable "s3_compaction_bucket_id" {
     type = string
 }
 
+variable "s3_compaction_bucket_arn" {
+    description = "The ARN of the compaction S3 bucket."
+    type = string
+}
+
 variable "s3_manifest_prefix" {
     description = "The prefix of the S3 manifest bucket."
     type = string
@@ -184,8 +194,18 @@ variable "s3_manifest_bucket_id" {
     type = string
 }
 
+variable "s3_manifest_bucket_arn" {
+    description = "The ARN of the manifest S3 bucket."
+    type = string
+}
+
 variable "s3_config_bucket_id" {
     description = "The ID of the config S3 bucket."
+    type = string
+}
+
+variable "s3_config_bucket_arn" {
+    description = "The ARN of the config S3 bucket."
     type = string
 }
 
@@ -210,6 +230,11 @@ variable "cw_agent_namespace" {
     description = "The CloudWatch namespace to send logs and metrics to."
     type = string
     default = "/app/htme"
+}
+
+variable "cw_agent_controller_namespace" {
+    description = "The CloudWatch namespace belonging to the uc_export_to_crown_controller Lambda."
+    type = string
 }
 
 variable "cw_agent_metrics_collection_interval" {
@@ -258,8 +283,18 @@ variable "uc_export_to_crown_status_table_name" {
     type = string
 }
 
+variable "uc_export_to_crown_status_table_arn" {
+    description = "The ARN of the uc_export_to_crown_status table."
+    type = string
+}
+
 variable "data_pipeline_metadata_name" {
     description = "The name of the data_pipeline_metadata table."
+    type = string
+}
+
+variable "data_pipeline_metadata_arn" {
+    description = "The ARN of the data_pipeline_metadata table."
     type = string
 }
 
@@ -292,7 +327,7 @@ variable "blocked_topics" {
     default     = "db.no.topicIs.blockedATM"
 }
 
-variable "sns_topic_arn_monitoring" {
+variable "sns_topic_arn_monitoring_arn" {
     description = "The ARN of the monitoring topic to send alerts and notifcations to."
     type = 
 }
@@ -390,18 +425,201 @@ variable "root_ca_arn" {
     type = 
 }
 
-variable "" {
-    description = ""
-    type = 
+variable "iam_role_max_session_timeout_seconds" {
+    description = "Timeout in seconds for an IAM Role to be assumed."
+    type = number
+    default = 43200
 }
 
-variable "" {
-    description = ""
-    type = 
+variable "public_cert_bucket_arn" {
+    description = "The S3 Bucket ARN for public certificates."
+    type = string
 }
 
-variable "" {
-    description = ""
-    type = 
+variable "compaction_bucket_cmk_arn" {
+    description = "The KMS Key ARN belonging to the compaction S3 bucket."
+    type = string
+}
+
+variable "htme_s3_manifest_prefix" {
+    description = "The prefix HTME should use to write manfiest data."
+    type = string
+}
+
+variable "manifest_bucket_cmk_arn" {
+    description = "The KMS Key ARN belonging to the compaction S3 bucket."
+    type = string
+}
+
+variable "input_bucket_cmk_arn" {
+    description = "The KMS Key ARN belonging to the input S3 bucket."
+    type = string
+}
+
+variable "export_state_fifo_sqs_arn" {
+    description = "The ARN of the Export State FIFO SQS Queue."
+    type = string
+}
+
+variable "corporate_storage_export_sqs_arn" {
+    description = "The ARN of the Corporate Storage Export SQS Queue."
+    type = string
+}
+
+variable "data_egress_sqs_arn" {
+    description = "The ARN of the Data Egress SQS Queue."
+    type = string
+}
+
+variable "export_state_fifo_sqs_key_arn" {
+    description = "The ARN of the KMS Key belonging to the Export State FIFO SQS Queue."
+    type = string
+}
+
+variable "corporate_storage_export_sqs_key_arn" {
+    description = "The ARN of the KMS Key belonging to the Corporate Storage Export SQS Queue."
+    type = string
+}
+
+variable "default_ebs_cmk_arn" {
+    description = "The ARN of the KMS Key belonging to default EBS Volumes."
+    type = string
+}
+
+variable "config_bucket_cmk_arn" {
+    description = "The ARN of the KMS Key belonging to the Config S3 Bucket."
+    type = string
+}
+
+variable "artefact_bucket_cmk_arn" {
+    description = "The ARN of the KMS Key belonging to the Artefact S3 Bucket."
+    type = string
+}
+
+variable "export_status_sns_fulls_arn" {
+    description = "The ARN of the export status SNS queue for full exports."
+    type = string
+}
+
+variable "export_status_sns_incrementals_arn" {
+    description = "The ARN of the export status SNS queue for incremental exports."
+    type = string
+}
+
+variable "cw_agent_log_group_name_htme" {
+    description = "The CloudWatch Log Group Name to give to HTME Logs."
+    type = string
+    default = "/app/htme"
+}
+
+variable "cw_agent_log_group_name_acm" {
+    description = "The CloudWatch Log Group Name to give to AWS Certificate Manager Logs."
+    type = string
+    default = "/app/htme/acm"
+}
+
+variable "cw_agent_log_group_name_application" {
+    description = "The CloudWatch Log Group Name to give to Application Logs."
+    type = string
+    default = "/app/htme/application"
+}
+
+variable "cw_agent_log_group_name_boostrapping" {
+    description = "The CloudWatch Log Group Name to give to Bootstrapping Logs."
+    type = string
+    default = "/app/htme/boostrapping"
+}
+
+variable "cw_agent_log_group_name_system" {
+    description = "The CloudWatch Log Group Name to give to System Logs."
+    type = string
+    default = "/app/htme/system"
+}
+
+variable "cw_uc_export_to_crown_controller_log_group_name" {
+    description = "The CloudWatch Log Group Name belonging to the uc_export_to_crown_controller Lambda."
+    type = string
+}
+
+variable "htme_alert_on_failed_manifest_writes" {
+    description = "Whether to enable alerting on failed manifest writes log messages."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_failed_to_start" {
+    description = "Whether to enable alerting on failed to start log messages."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_collection_duration" {
+    description = "Whether to enable alerting on log messages indicating long running HTME Batch Jobs."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_read_failures" {
+    description = "Whether to enable alerting on log messages indicating 5 or more HBase read errors found in 30 minutes."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_failed_snapshots" {
+    description = "Whether to enable alerting on log messages indicating 5 or more failed snapshot writes found in 30 minutes."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_dks_errors" {
+    description = "Whether to enable alerting on DKS Error log messages."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_dks_retries" {
+    description = "Whether to enable alerting on 50 or more DKS Error log messages found in 15 minutes"
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_rejected_records" {
+    description = "Whether to enable alerting on log messages indicating 5 or more rejected records found in 30 minutes."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_failed_collections" {
+    description = "Whether to enable alerting on log messages indicating 1 or more failed collections found in 1 hour."
+    type = bool
+    default = true
+}
+
+variable "htme_alert_on_memory_usage" {
+    description = "Whether to enable alerting when HTME is using >90% of available memory."
+    type = bool
+    default = true
+}
+
+variable "subnet_ids" {
+    description = "A list of subnet IDs that HTME should be deployed into."
+    type = list(string)
+}
+
+variable "subnet_cidrs" {
+    description = "A list of subnet CIDR addresses that HTME should be deployed into."
+    type = list(string)
+}
+
+variable "htme_default_topics_ris_file_name" {
+    description = "The default CSV File to use per environment for ris topics."
+    type = map(string)
+    default = {
+        development = "htme_default_topics_ris_development.csv"
+        qa          = "htme_default_topics_ris_qa.csv"
+        integration = "htme_default_topics_ris_integration.csv"
+        preprod     = "htme_default_topics_ris_preprod.csv"
+        production  = "htme_default_topics_ris_production.csv"
+    }
 }
 

@@ -120,7 +120,7 @@ resource "aws_security_group_rule" "htme_ingress_to_dks" {
   from_port   = 8443
   to_port     = 8443
 
-  cidr_blocks = aws_subnet.htme.*.cidr_block
+  cidr_blocks = var.subnet_cidrs
 
   security_group_id = data.terraform_remote_state.crypto.outputs.dks_sg_id[var.environment]
 }

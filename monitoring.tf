@@ -1,11 +1,11 @@
 resource "aws_cloudwatch_log_metric_filter" "htme_records_processed" {
   name           = "htme_records_processed"
   pattern        = "{$.message = \"*Putting batch object into bucket\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_records_processed"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = "$.records_in_batch"
   }
 }
@@ -13,11 +13,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_records_processed" {
 resource "aws_cloudwatch_log_metric_filter" "htme_collections_started" {
   name           = "htme_collections_started"
   pattern        = "{ $.message = \"Starting topic\" }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_collections_started"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -25,11 +25,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_collections_started" {
 resource "aws_cloudwatch_log_metric_filter" "htme_collections_successfully_completed" {
   name           = "htme_collections_successfully_completed"
   pattern        = "{ $.message = \"Collection status set\" && $.collection_status = \"*Exported*\" }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_collections_successfully_completed"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -37,11 +37,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_collections_successfully_compl
 resource "aws_cloudwatch_log_metric_filter" "htme_successful_non_empty_collections" {
   name           = "htme_successful_non_empty_collections"
   pattern        = "{ $.message = \"Collection status set\" && $.collection_status = \"*Exported*\" && $.files_exported != 0 }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_successful_non_empty_collections"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -49,11 +49,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_successful_non_empty_collectio
 resource "aws_cloudwatch_log_metric_filter" "htme_successful_empty_collections" {
   name           = "htme_successful_empty_collections"
   pattern        = "{ $.message = \"Collection status set\" && $.collection_status = \"*Exported*\" && $.files_exported = 0 }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_successful_empty_collections"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -61,11 +61,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_successful_empty_collections" 
 resource "aws_cloudwatch_log_metric_filter" "htme_collections_failed" {
   name           = "htme_collections_failed"
   pattern        = "{ $.message = \"Collection status set\" && $.collection_status = \"*Export_Failed*\" }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_collections_failed"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -74,11 +74,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_collections_failed" {
 resource "aws_cloudwatch_log_metric_filter" "htme_collection_duration_ms" {
   name           = "htme_collection_duration_ms"
   pattern        = "{ $.message = \"Job completed\" }"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_collection_duration_ms"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = "$.duration_in_milliseconds"
   }
 }
@@ -86,11 +86,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_collection_duration_ms" {
 resource "aws_cloudwatch_log_metric_filter" "htme_read_failures" {
   name           = "htme_read_failures"
   pattern        = "{$.message = \"Failed to get next record after max retries\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_read_failures"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -98,11 +98,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_read_failures" {
 resource "aws_cloudwatch_log_metric_filter" "htme_failed_snapshots" {
   name           = "htme_snapshots_failed_to_write_to_s3"
   pattern        = "{$.message = \"Exception while writing snapshot file to s3\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_snapshots_failed_to_write_to_s3"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -110,11 +110,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_failed_snapshots" {
 resource "aws_cloudwatch_log_metric_filter" "htme_rejected_hbase_records" {
   name           = "htme_rejected_hbase_records"
   pattern        = "{$.message = \"Rejecting invalid item\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_rejected_hbase_records"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -122,11 +122,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_rejected_hbase_records" {
 resource "aws_cloudwatch_log_metric_filter" "htme_failed_manifest_writes" {
   name           = "htme_failed_manifest_writes"
   pattern        = "{$.message = \"Failed to write manifest\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_failed_manifest_writes"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -134,11 +134,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_failed_manifest_writes" {
 resource "aws_cloudwatch_log_metric_filter" "htme_dks_retries" {
   name           = "htme_dks_retries"
   pattern        = "{$.message = \"*from data key service*\" && $.log_level = \"WARN\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_dks_retries"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -146,11 +146,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_dks_retries" {
 resource "aws_cloudwatch_log_metric_filter" "htme_dks_errors" {
   name           = "htme_dks_errors"
   pattern        = "{$.message = \"*Non-skippable exception in recoverer while processing*\" && $.message = \"*data key service returned status code*\" && $.log_level = \"ERROR\"}"
-  log_group_name = aws_cloudwatch_log_group.htme.name
+  log_group_name = var.cw_agent_log_group_name_htme
 
   metric_transformation {
     name      = "htme_dks_errors"
-    namespace = local.cw_agent_namespace
+    namespace = var.cw_agent_namespace
     value     = 1
   }
 }
@@ -158,11 +158,11 @@ resource "aws_cloudwatch_log_metric_filter" "htme_dks_errors" {
 resource "aws_cloudwatch_log_metric_filter" "htme_requested_topics_to_export" {
   name           = "htme_requested_topics_to_export"
   pattern        = "{$.message = \"Topic list qualified\"}"
-  log_group_name = aws_cloudwatch_log_group.uc_export_to_crown_controller.name
+  log_group_name = var.uc_export_to_crown_controller_log_group_name
 
   metric_transformation {
     name      = "htme_requested_topics_to_export"
-    namespace = local.cw_agent_controller_namespace
+    namespace = var.cw_agent_controller_namespace
     value     = "$.number_of_topics_to_export"
   }
 }
@@ -170,45 +170,45 @@ resource "aws_cloudwatch_log_metric_filter" "htme_requested_topics_to_export" {
 resource "aws_cloudwatch_log_metric_filter" "htme_requested_topics_to_send" {
   name           = "htme_requested_topics_to_send"
   pattern        = "{$.message = \"Topic list qualified\"}"
-  log_group_name = aws_cloudwatch_log_group.uc_export_to_crown_controller.name
+  log_group_name = var.cw_uc_export_to_crown_controller_log_group_name
 
   metric_transformation {
     name      = "htme_requested_topics_to_send"
-    namespace = local.cw_agent_controller_namespace
+    namespace = var.cw_agent_controller_namespace
     value     = "$.number_of_topics_to_send"
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_failed_manifest_write" {
-  count               = local.htme_alert_on_failed_manifest_writes[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_failed_manifest_writes == true ? 1 : 0
   alarm_name          = "HTME: Failed to write a manifest file after retries."
   comparison_operator = "LessThanThreshold"
   period              = 900
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_failed_manifest_writes.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   statistic           = "Sum"
   threshold           = 1
   treat_missing_data  = "notBreaching"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "HTME has failed to write a manifest file after max retries"
   tags              = { notification_type = "Error", severity = "Medium" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_failed_to_start_in_24h" {
-  count               = local.htme_alert_on_failed_to_start[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_failed_to_start == true ? 1 : 0
   alarm_name          = "HTME: Failed to start within 24 hour period."
   comparison_operator = "LessThanThreshold"
   period              = 3600
   evaluation_periods  = 24
   metric_name         = aws_cloudwatch_log_metric_filter.htme_collections_started.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   statistic           = "Sum"
   threshold           = 1
   treat_missing_data  = "breaching"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "HTME hasn't ran or failed to start in 24 hours"
   tags = {
     notification_type = "Error",
@@ -218,127 +218,127 @@ resource "aws_cloudwatch_metric_alarm" "htme_failed_to_start_in_24h" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "collection_duration_ms_exceeded_average" {
-  count               = local.htme_alert_on_collection_duration[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_collection_duration == true ? 1 : 0
   alarm_name          = "HTME: running for longer than 12 hours"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 900
   evaluation_periods  = 1
   datapoints_to_alarm = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_collection_duration_ms.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   statistic           = "Maximum"
   threshold           = 43200000
   treat_missing_data  = "notBreaching"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "HTME has been running for longer than 12 hours"
   tags              = { notification_type = "Warning", severity = "Low" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_read_failures" {
-  count               = local.htme_alert_on_read_failures[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_read_failures == true ? 1 : 0
   alarm_name          = "HTME: 5 or more HBase read errors found in 30 minutes"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_read_failures.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 1800
   threshold           = 5
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "5 or more HBase read errors found in 30 minutes for HTME"
   tags              = { notification_type = "Warning", severity = "High" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_failed_snapshots" {
-  count               = local.htme_alert_on_failed_snapshots[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_failed_snapshots == true ? 1 : 0
   alarm_name          = "HTME: 5 or more failed snapshot writes found in 30 minutes"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_failed_snapshots.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 900
   threshold           = 5
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "5 or more failed snapshot writes found in 30 minutes for HTME"
   tags              = { notification_type = "Warning", severity = "High" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_dks_errors" {
-  count               = local.htme_alert_on_dks_errors[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_dks_errors == true ? 1 : 0
   alarm_name          = "HTME: DKS errors found"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_dks_errors.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 900
   threshold           = 1
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "DKS errors found for HTME"
   tags              = { notification_type = "Error", severity = "High" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_dks_retries" {
-  count               = local.htme_alert_on_dks_retries[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_dks_retries == true ? 1 : 0
   alarm_name          = "HTME: 50 or more DKS errors found in 15 minutes"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_dks_retries.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 900
   threshold           = 50
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "50 or more DKS errors found in 15 minutes for HTME"
   tags              = { notification_type = "Warning", severity = "Low" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_rejected_hbase_records" {
-  count               = local.htme_alert_on_rejected_records[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_rejected_records == true ? 1 : 0
   alarm_name          = "HTME: 5 or more rejected records found in 30 minutes"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_rejected_hbase_records.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 1800
   threshold           = 5
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "5 or more rejected records found in 30 minutes for HTME"
   tags              = { notification_type = "Warning", severity = "Medium" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "collections_failed" {
-  count               = local.htme_alert_on_failed_collections[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_failed_collections == true ? 1 : 0
   alarm_name          = "HTME: 1 or more failed collections found in 1 hour"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.htme_collections_failed.name
-  namespace           = local.cw_agent_namespace
+  namespace           = var.cw_agent_namespace
   period              = 3600
   threshold           = 1
   statistic           = "Sum"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "1 or more failed collections found in 1 hour for HTME"
   tags              = { notification_type = "Error", severity = "High" }
 }
 
 resource "aws_cloudwatch_metric_alarm" "htme_memory_usage" {
-  count               = local.htme_alert_on_memory_usage[var.environment] == true ? 1 : 0
+  count               = var.htme_alert_on_memory_usage == true ? 1 : 0
   alarm_name          = "htme_memory_usage"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "1"
   threshold           = "90"
 
-  alarm_actions     = [data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn]
+  alarm_actions     = [var.sns_topic_arn_monitoring_arn]
   alarm_description = "Triggers when HTME uses >90% of available memory"
   tags              = { notification_type = "Warning", severity = "Medium" }
 
@@ -354,7 +354,7 @@ resource "aws_cloudwatch_metric_alarm" "htme_memory_usage" {
 
     metric {
       metric_name = "mem_used"
-      namespace   = local.cw_agent_namespace
+      namespace   = var.cw_agent_namespace
       period      = "60"
       stat        = "Maximum"
     }
@@ -365,7 +365,7 @@ resource "aws_cloudwatch_metric_alarm" "htme_memory_usage" {
 
     metric {
       metric_name = "mem_total"
-      namespace   = local.cw_agent_namespace
+      namespace   = var.cw_agent_namespace
       period      = "60"
       stat        = "Maximum"
     }

@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "htme_policy" {
 resource "aws_iam_role" "htme" {
   name                 = "htme"
   assume_role_policy   = data.aws_iam_policy_document.htme_policy.json
-  max_session_duration = local.iam_role_max_session_timeout_seconds
+  max_session_duration = var.iam_role_max_session_timeout_seconds
   tags                 = var.common_tags
 }
 
@@ -43,7 +43,8 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-    data.terraform_remote_state.certificate_authority.outputs.public_cert_bucket.arn]
+      var.public_cert_bucket_arn
+    ]
   }
 
   statement {
@@ -58,7 +59,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-    "${aws_s3_bucket.compaction.arn}/*"]
+    "${var.s3_compaction_bucket_arn}/*"]
   }
 
   statement {
@@ -72,7 +73,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-    aws_s3_bucket.compaction.arn]
+    var.s3_compaction_bucket_arn]
   }
 
   statement {
@@ -88,7 +89,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      aws_kms_key.compaction_bucket_cmk.arn,
+      var.compaction_bucket_cmk_arn,
     ]
   }
 
@@ -102,7 +103,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      "${aws_s3_bucket.manifest_bucket.arn}/${local.htme_s3_manifest_prefix}/*",
+      "${var.s3_manifest_bucket_arn}/${var.htme_s3_manifest_prefix}/*",
     ]
   }
 
@@ -115,7 +116,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      aws_s3_bucket.manifest_bucket.arn,
+      var.s3_manifest_bucket_arn,
     ]
   }
 
@@ -133,7 +134,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-      aws_kms_key.manifest_bucket_cmk.arn,
+      var.manifest_bucket_cmk_arn,
     ]
   }
 
@@ -151,7 +152,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-      data.terraform_remote_state.ingestion.outputs.input_bucket_cmk.arn,
+      var.input_bucket_cmk_arn,
     ]
   }
 
@@ -168,9 +169,9 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      data.terraform_remote_state.common.outputs.export_state_fifo_sqs.arn,
-      data.terraform_remote_state.common.outputs.corporate_storage_export_sqs.arn,
-      data.terraform_remote_state.common.outputs.data_egress_sqs.arn,
+      var.export_state_fifo_sqs_arn,
+      var.corporate_storage_export_sqs_arn,
+      var.data_egress_sqs_arn,
     ]
   }
 
@@ -187,8 +188,8 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      data.terraform_remote_state.common.outputs.export_state_fifo_sqs.key_arn,
-      data.terraform_remote_state.common.outputs.corporate_storage_export_sqs.key_arn,
+      var.export_state_fifo_sqs_key_arn,
+      var.corporate_storage_export_sqs_key_arn,
     ]
   }
 
@@ -219,7 +220,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-    data.terraform_remote_state.security-tools.outputs.ebs_cmk.arn]
+    var.default_ebs_cmk_arn]
   }
 
   statement {
@@ -233,7 +234,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-    data.terraform_remote_state.common.outputs.config_bucket.arn]
+    var.s3_config_bucket_arn]
   }
 
   statement {
@@ -244,7 +245,7 @@ data "aws_iam_policy_document" "htme_main" {
     "s3:GetObject"]
 
     resources = [
-    "${data.terraform_remote_state.common.outputs.config_bucket.arn}/*"]
+    "${var.s3_config_bucket_arn}/*"]
   }
 
   statement {
@@ -258,7 +259,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-    data.terraform_remote_state.common.outputs.config_bucket_cmk.arn]
+    var.config_bucket_cmk_arn]
   }
 
   statement {
@@ -300,7 +301,7 @@ data "aws_iam_policy_document" "htme_main" {
     "s3:GetBucketLocation"]
 
     resources = [
-    data.terraform_remote_state.management_artefact.outputs.artefact_bucket.arn]
+    var.s3_artefact_bucket_arn]
   }
 
   statement {
@@ -309,7 +310,7 @@ data "aws_iam_policy_document" "htme_main" {
     actions = [
     "s3:GetObject"]
     resources = [
-    "${data.terraform_remote_state.management_artefact.outputs.artefact_bucket.arn}/*"]
+    "${var.s3_artefact_bucket_arn}/*"]
   }
 
   statement {
@@ -323,7 +324,7 @@ data "aws_iam_policy_document" "htme_main" {
 
 
     resources = [
-    data.terraform_remote_state.management_artefact.outputs.artefact_bucket.cmk_arn]
+    var.artefact_bucket_cmk_arn]
   }
 
   statement {
@@ -340,8 +341,8 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      aws_dynamodb_table.uc_export_to_crown_status_table.arn,
-      aws_dynamodb_table.data_pipeline_metadata.arn
+      var.uc_export_to_crown_status_table_arn,
+      var.data_pipeline_metadata_arn
     ]
   }
 
@@ -362,9 +363,9 @@ data "aws_iam_policy_document" "htme_main" {
 
     actions = ["SNS:Publish"]
     resources = [
-      aws_sns_topic.export_status_sns_fulls.arn,
-      aws_sns_topic.export_status_sns_incrementals.arn,
-      data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn,
+      var.export_status_sns_fulls_arn,
+      var.export_status_sns_incrementals_arn,
+      var.sns_topic_arn_monitoring_arn,
     ]
   }
 }

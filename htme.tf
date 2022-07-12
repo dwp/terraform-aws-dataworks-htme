@@ -129,7 +129,7 @@ resource "aws_autoscaling_group" "htme" {
   health_check_type         = var.health_check_type
   force_delete              = true
   suspended_processes       = var.suspended_processes
-  vpc_zone_identifier       = aws_subnet.htme.*.id
+  vpc_zone_identifier       = var.subnet_ids
 
   mixed_instances_policy {
     launch_template {
@@ -254,7 +254,7 @@ data "template_file" "htme" {
     htme_manifest_retry_delay_ms                     = var.manifest_retry_delay_ms
     htme_manifest_retry_multiplier                   = var.manifest_retry_multiplier
     blocked_topics                                   = var.blocked_topics
-    sns_topic_arn_monitoring                         = var.sns_topic_arn_monitoring
+    sns_topic_arn_monitoring                         = var.sns_topic_arn_monitoring_arn
     sns_topic_arn_completion_incremental             = var.sns_topic_arn_completion_incremental
     sns_topic_arn_completion_full                    = var.sns_topic_arn_completion_full
     pushgateway_hostname                             = var.htme_pushgateway_hostname
@@ -334,7 +334,7 @@ data "template_file" "htme_fallback" {
     htme_manifest_retry_delay_ms                     = var.manifest_retry_delay_ms
     htme_manifest_retry_multiplier                   = var.manifest_retry_multiplier
     blocked_topics                                   = var.blocked_topics
-    sns_topic_arn_monitoring                         = var.sns_topic_arn_monitoring
+    sns_topic_arn_monitoring                         = var.sns_topic_arn_monitoring_arn
     sns_topic_arn_completion_incremental             = var.sns_topic_arn_completion_incremental
     sns_topic_arn_completion_full                    = var.sns_topic_arn_completion_full
     pushgateway_hostname                             = var.htme_pushgateway_hostname
