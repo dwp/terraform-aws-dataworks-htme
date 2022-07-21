@@ -6,5 +6,5 @@ resource "aws_secretsmanager_secret" "htme_collections_ris" {
 
 resource "aws_secretsmanager_secret_version" "htme_collections_ris" {
   secret_id     = aws_secretsmanager_secret.htme_collections_ris.name
-  secret_string = data.local_file.htme_default_topics_ris_csv.content_base64 != "" ? data.local_file.htme_default_topics_ris_csv.content_base64 : base64encode("NOT_SET")
+  secret_string = var.htme_default_topics_ris_base64 != "" ? var.htme_default_topics_ris_base64 : base64encode("NOT_SET")
 }

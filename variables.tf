@@ -182,8 +182,8 @@ variable "domain_name" {
 #   Scripts
 # = = = = = = =
 
-variable "htme_default_topics_ris_file_name" {
-  description = "The default CSV File to use per environment for ris topics."
+variable "htme_default_topics_ris_base64" {
+  description = "The base64 encoded string containing defualt topics for RIS."
   type        = string
 }
 
