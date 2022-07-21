@@ -60,10 +60,6 @@ No modules.
 | [aws_launch_template.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_launch_template.htme_fallback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_s3_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_default_topics_drift_testing_incrementals_csv](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_default_topics_full_csv](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_default_topics_incrementals_csv](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_default_topics_ris_csv](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [aws_s3_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [aws_s3_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [aws_s3_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
@@ -76,10 +72,6 @@ No modules.
 | [aws_sqs_queue.corporate_storage_export_sqs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
 | [aws_sqs_queue.scheduler_sqs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
 | [local_file.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
-| [local_file.htme_default_topics_drift_testing_incrementals_csv](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
-| [local_file.htme_default_topics_full_csv](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
-| [local_file.htme_default_topics_incrementals_csv](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
-| [local_file.htme_default_topics_ris_csv](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 | [local_file.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 | [local_file.htme_shell_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 | [local_file.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
@@ -155,7 +147,7 @@ No modules.
 | <a name="input_htme_alert_on_memory_usage"></a> [htme\_alert\_on\_memory\_usage](#input\_htme\_alert\_on\_memory\_usage) | Whether to enable alerting when HTME is using >90% of available memory. | `bool` | `true` | no |
 | <a name="input_htme_alert_on_read_failures"></a> [htme\_alert\_on\_read\_failures](#input\_htme\_alert\_on\_read\_failures) | Whether to enable alerting on log messages indicating 5 or more HBase read errors found in 30 minutes. | `bool` | `true` | no |
 | <a name="input_htme_alert_on_rejected_records"></a> [htme\_alert\_on\_rejected\_records](#input\_htme\_alert\_on\_rejected\_records) | Whether to enable alerting on log messages indicating 5 or more rejected records found in 30 minutes. | `bool` | `true` | no |
-| <a name="input_htme_default_topics_ris_file_name"></a> [htme\_default\_topics\_ris\_file\_name](#input\_htme\_default\_topics\_ris\_file\_name) | The default CSV File to use per environment for ris topics. | `string` | n/a | yes |
+| <a name="input_htme_default_topics_ris_base64"></a> [htme\_default\_topics\_ris\_base64](#input\_htme\_default\_topics\_ris\_base64) | The base64 encoded string containing defualt topics for RIS. | `string` | n/a | yes |
 | <a name="input_htme_log_level"></a> [htme\_log\_level](#input\_htme\_log\_level) | The log level of HTME. | `string` | `"INFO"` | no |
 | <a name="input_htme_pushgateway_hostname"></a> [htme\_pushgateway\_hostname](#input\_htme\_pushgateway\_hostname) | The hostname of the HTME Prometheus Pushgateway. | `string` | n/a | yes |
 | <a name="input_htme_version"></a> [htme\_version](#input\_htme\_version) | Hbase to Mongo export JAR release version. | `string` | n/a | yes |
