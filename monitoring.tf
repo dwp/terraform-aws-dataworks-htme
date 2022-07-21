@@ -158,7 +158,7 @@ resource "aws_cloudwatch_log_metric_filter" "htme_dks_errors" {
 resource "aws_cloudwatch_log_metric_filter" "htme_requested_topics_to_export" {
   name           = "htme_requested_topics_to_export"
   pattern        = "{$.message = \"Topic list qualified\"}"
-  log_group_name = var.uc_export_to_crown_controller_log_group_name
+  log_group_name = var.cw_uc_export_to_crown_controller_log_group_name
 
   metric_transformation {
     name      = "htme_requested_topics_to_export"

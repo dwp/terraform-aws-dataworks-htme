@@ -354,7 +354,7 @@ data "aws_iam_policy_document" "htme_main" {
       "ec2:ModifyInstanceMetadataOptions",
       "ec2:*Tags",
     ]
-    resources = ["arn:aws:ec2:${var.region}:${local.account[var.environment]}:instance/*"]
+    resources = ["arn:aws:ec2:${var.region}:${var.account_number}:instance/*"]
   }
 
   statement {

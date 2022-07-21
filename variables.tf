@@ -7,6 +7,16 @@ variable "environment" {
     type = string
 }
 
+variable "account_number" {
+    description = "The AWS Account Number to deploy to."
+    type = string
+}
+
+variable "region" {
+    description = "Name of the region to deploy to."
+    type = string
+}
+
 variable "common_tags" {
     description = "A set of common tags to identify the HTME application."
     type = map(string)
@@ -156,7 +166,7 @@ variable "iam_role_max_session_timeout_seconds" {
 
 variable "root_ca_arn" {
     description = "The ARN of the root CA certificate."
-    type = 
+    type = string
 }
 
 variable "domain_name" {
@@ -428,7 +438,7 @@ variable "cw_agent_netstat_metrics_collection_interval" {
 
 variable "sns_topic_arn_monitoring_arn" {
     description = "The ARN of the monitoring topic to send alerts and notifcations to."
-    type = 
+    type = string
 }
 
 variable "sns_topic_arn_completion_incremental" {
@@ -670,7 +680,7 @@ variable "hbase_rpc_timeout_ms" {
 variable "hbase_rpc_read_timeout_ms" {
     description = "The timeout of the server side (per client can overwrite) for a single RPC read only call."
     type = string
-    type = "600000"
+    default = "600000"
 }
 
 variable "pdm_common_model_site_prefix" {
