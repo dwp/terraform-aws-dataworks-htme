@@ -323,6 +323,11 @@ variable "s3_manifest_bucket_arn" {
   type        = string
 }
 
+variable "s3_manifest_prefix" {
+  description = "The prefix of the S3 manifest bucket."
+  type        = string
+}
+
 variable "manifest_bucket_cmk_arn" {
   description = "The KMS Key ARN belonging to the compaction S3 bucket."
   type        = string
@@ -715,14 +720,4 @@ variable "s3_socket_timeout_milliseconds" {
   description = "How long HTME should wait for an s3 connection before giving up"
   type        = string
   default     = "180000"
-}
-
-variable "s3_manifest_prefix" {
-  description = "The prefix of the S3 manifest bucket."
-  type        = string
-}
-
-variable "htme_s3_manifest_prefix" {
-  description = "The prefix HTME should use to write manfiest data."
-  type        = string
 }

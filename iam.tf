@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "htme_main" {
     ]
 
     resources = [
-      "${var.s3_manifest_bucket_arn}/${var.htme_s3_manifest_prefix}/*",
+      "${var.s3_manifest_bucket_arn}/${var.s3_manifest_prefix}/*",
     ]
   }
 
