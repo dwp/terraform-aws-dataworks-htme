@@ -180,7 +180,7 @@ resource "aws_autoscaling_group" "htme" {
 }
 
 data "template_file" "htme" {
-  template = file("userdata.tpl")
+  template = file("${path.module}/userdata.tpl")
 
   vars = {
     name = var.instance_name
@@ -268,7 +268,7 @@ data "template_file" "htme" {
 }
 
 data "template_file" "htme_fallback" {
-  template = file("userdata.tpl")
+  template = file("${path.module}/userdata.tpl")
 
   vars = {
     name = var.instance_name
