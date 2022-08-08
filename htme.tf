@@ -224,13 +224,13 @@ data "template_file" "htme" {
     hbase_rpc_read_timeout_ms = var.hbase_rpc_read_timeout_ms
 
     s3_scripts_bucket                 = var.s3_config_bucket_id
-    s3_script_key_htme_sh             = aws_s3_object.htme_shell_script.id
-    s3_script_key_htme_wrapper_sh     = aws_s3_object.htme_wrapper_script.id
-    s3_script_key_htme_logrotate      = aws_s3_object.htme_logrotate_script.id
-    s3_script_htme_cloudwatch_sh      = aws_s3_object.htme_cloudwatch_script.id
+    s3_script_key_htme_sh             = aws_s3_bucket_object.htme_shell_script.id
+    s3_script_key_htme_wrapper_sh     = aws_s3_bucket_object.htme_wrapper_script.id
+    s3_script_key_htme_logrotate      = aws_s3_bucket_object.htme_logrotate_script.id
+    s3_script_htme_cloudwatch_sh      = aws_s3_bucket_object.htme_cloudwatch_script.id
     s3_script_common_logging_sh       = var.s3_script_common_logging_sh_id
     s3_script_logging_sh              = var.s3_script_logging_sh_id
-    s3_script_wrapper_checker_sh      = aws_s3_object.wrapper_checker_script.id
+    s3_script_wrapper_checker_sh      = aws_s3_bucket_object.wrapper_checker_script.id
     s3_script_hash_htme_sh            = md5(data.local_file.htme_shell_script.content)
     s3_script_hash_htme_wrapper_sh    = md5(data.local_file.htme_wrapper_script.content)
     s3_script_hash_htme_logrotate     = md5(data.local_file.htme_logrotate_script.content)
@@ -312,13 +312,13 @@ data "template_file" "htme_fallback" {
     hbase_rpc_read_timeout_ms = var.hbase_rpc_read_timeout_ms
 
     s3_scripts_bucket                 = var.s3_config_bucket_id
-    s3_script_key_htme_sh             = aws_s3_object.htme_shell_script.id
-    s3_script_key_htme_wrapper_sh     = aws_s3_object.htme_wrapper_script.id
-    s3_script_key_htme_logrotate      = aws_s3_object.htme_logrotate_script.id
-    s3_script_htme_cloudwatch_sh      = aws_s3_object.htme_cloudwatch_script.id
+    s3_script_key_htme_sh             = aws_s3_bucket_object.htme_shell_script.id
+    s3_script_key_htme_wrapper_sh     = aws_s3_bucket_object.htme_wrapper_script.id
+    s3_script_key_htme_logrotate      = aws_s3_bucket_object.htme_logrotate_script.id
+    s3_script_htme_cloudwatch_sh      = aws_s3_bucket_object.htme_cloudwatch_script.id
     s3_script_common_logging_sh       = var.s3_script_common_logging_sh_id
     s3_script_logging_sh              = var.s3_script_logging_sh_id
-    s3_script_wrapper_checker_sh      = aws_s3_object.wrapper_checker_script.id
+    s3_script_wrapper_checker_sh      = aws_s3_bucket_object.wrapper_checker_script.id
     s3_script_hash_htme_sh            = md5(data.local_file.htme_shell_script.content)
     s3_script_hash_htme_wrapper_sh    = md5(data.local_file.htme_wrapper_script.content)
     s3_script_hash_htme_logrotate     = md5(data.local_file.htme_logrotate_script.content)
