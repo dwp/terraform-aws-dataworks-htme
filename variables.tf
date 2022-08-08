@@ -224,13 +224,13 @@ variable "common_logging_sh_content_hash" {
 #   SQS Variables
 # = = = = = = = = =
 
-variable "scheduler_sqs_queue_name" {
-  description = "The name of the scheduler SQS Queue."
+variable "scheduler_sqs_queue_url" {
+  description = "The URL of the scheduler SQS Queue."
   type        = string
 }
 
-variable "corporate_storage_export_sqs_queue_name" {
-  description = "The name of the corporate storage export SQS Queue."
+variable "corporate_storage_export_sqs_queue_url" {
+  description = "The URL of the corporate storage export SQS Queue."
   type        = string
 }
 

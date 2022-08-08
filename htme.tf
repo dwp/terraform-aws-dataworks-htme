@@ -179,14 +179,6 @@ resource "aws_autoscaling_group" "htme" {
   }
 }
 
-data "aws_sqs_queue" "scheduler_sqs" {
-  name = var.scheduler_sqs_queue_name
-}
-
-data "aws_sqs_queue" "corporate_storage_export_sqs" {
-  name = var.corporate_storage_export_sqs_queue_name
-}
-
 data "template_file" "htme" {
   template = file("userdata.tpl")
 
@@ -265,8 +257,8 @@ data "template_file" "htme" {
     truststore_aliases = var.host_truststore_aliases
     truststore_certs   = var.host_truststore_certs
 
-    sqs_url              = data.aws_sqs_queue.scheduler_sqs.url
-    sqs_incoming_url     = data.aws_sqs_queue.corporate_storage_export_sqs.url
+    sqs_url              = var.scheduler_sqs_queue_url
+    sqs_incoming_url     = var.corporate_storage_export_sqs_queue_url
     sqs_message_group_id = var.sqs_messages_group_id_retries
 
     sns_topic_arn_monitoring             = var.sns_topic_arn_monitoring_arn
@@ -353,8 +345,8 @@ data "template_file" "htme_fallback" {
     truststore_aliases = var.host_truststore_aliases
     truststore_certs   = var.host_truststore_certs
 
-    sqs_url              = data.aws_sqs_queue.scheduler_sqs.url
-    sqs_incoming_url     = data.aws_sqs_queue.corporate_storage_export_sqs.url
+    sqs_url              = var.scheduler_sqs_queue_url
+    sqs_incoming_url     = var.corporate_storage_export_sqs_queue_url
     sqs_message_group_id = var.sqs_messages_group_id_retries
 
     sns_topic_arn_monitoring             = var.sns_topic_arn_monitoring_arn
