@@ -1,0 +1,173 @@
+groups:
+- jobs:
+  - terraform-aws-dataworks-htme-pr
+  name: pull-request
+- jobs:
+  - update-pipeline
+  name: update-pipeline
+jobs:
+- max_in_flight: 1
+  name: terraform-aws-dataworks-htme-pr
+  plan:
+  - get: terraform-aws-dataworks-htme-pr
+    trigger: true
+    version: every
+  - params:
+      path: terraform-aws-dataworks-htme-pr
+      status: pending
+    put: terraform-aws-dataworks-htme-pr
+  - config:
+      image_resource:
+        source:
+          repository: koalaman/shellcheck-alpine
+          tag: latest
+        type: docker-image
+      inputs:
+      - name: terraform-aws-dataworks-htme
+      platform: linux
+      run:
+        args:
+        - -exc
+        - |
+          find . -name "*.sh" | cat >> shell-list
+          # Ignore SC2154 as it will fail all terraform vars that are passed to scripts
+          # Ignore SC1091 due to sourcing of files that aren't in the same path locally so shellcheck will fail, but these files are on the boxes
+          for i in $(cat shell-list); do shellcheck -e SC2154 -e SC1091 $i; done
+        dir: terraform-aws-dataworks-htme
+        path: sh
+    input_mapping:
+      terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+    on_failure:
+      params:
+        path: terraform-aws-dataworks-htme-pr
+        status: failure
+      put: terraform-aws-dataworks-htme-pr
+    task: linting-shell
+  - config:
+      image_resource:
+        source:
+          repository: ((dataworks.terraform_repository))
+          tag: ((dataworks.terraform_14_version))
+        type: docker-image
+      inputs:
+      - name: terraform-aws-dataworks-htme
+      outputs:
+      - name: terraform-fmt
+      params:
+        AWS_REGION: ((dataworks.aws_region))
+        TF_CLI_ARGS_apply: -lock-timeout=300s
+        TF_CLI_ARGS_plan: -lock-timeout=300s
+        TF_INPUT: false
+        TF_VAR_slack_webhook_url: ((dataworks.slack_webhook_url))
+      platform: linux
+      run:
+        args:
+        - -exc
+        - |
+          terraform init
+          terraform fmt -recursive -check=true
+        dir: terraform-aws-dataworks-htme
+        path: sh
+    input_mapping:
+      terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+    on_failure:
+      params:
+        path: terraform-aws-dataworks-htme-pr
+        status: failure
+      put: terraform-aws-dataworks-htme-pr
+    task: terraform-fmt
+  - config:
+      image_resource:
+        source:
+          repository: ((dataworks.terraform_repository))
+          tag: ((dataworks.terraform_14_version))
+        type: docker-image
+      inputs:
+      - name: terraform-aws-dataworks-htme
+      outputs:
+      - name: terraform-validate
+      params:
+        AWS_REGION: ((dataworks.aws_region))
+        TF_CLI_ARGS_apply: -lock-timeout=300s
+        TF_CLI_ARGS_plan: -lock-timeout=300s
+        TF_INPUT: false
+        TF_VAR_slack_webhook_url: ((dataworks.slack_webhook_url))
+      platform: linux
+      run:
+        args:
+        - -exc
+        - |
+          terraform init
+          terraform validate
+        dir: terraform-aws-dataworks-htme
+        path: sh
+    input_mapping:
+      terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+    on_failure:
+      params:
+        path: terraform-aws-dataworks-htme-pr
+        status: failure
+      put: terraform-aws-dataworks-htme-pr
+    on_success:
+      params:
+        path: terraform-aws-dataworks-htme-pr
+        status: success
+      put: terraform-aws-dataworks-htme-pr
+    task: terraform-validate
+- name: update-pipeline
+  plan:
+  - get: terraform-aws-dataworks-htme
+    resource: terraform-aws-dataworks-htme-update-pipeline
+    trigger: true
+  - config:
+      image_resource:
+        source:
+          repository: ((dataworks.docker_aviator_repository))
+          version: ((dataworks.docker_aviator_version))
+        type: docker-image
+      inputs:
+      - name: terraform-aws-dataworks-htme
+      outputs:
+      - name: pipeline
+      platform: linux
+      run:
+        args:
+        - -exc
+        - |
+          sed -i 's/fly/nofly/' aviator.yml
+          /usr/bin/aviator -f aviator.yml
+          mv aviator_pipeline.yml ../pipeline
+          mv ci/vars.yml ../pipeline
+        dir: terraform-aws-dataworks-htme
+        path: sh
+    task: aviator
+  - file: pipeline/aviator_pipeline.yml
+    set_pipeline: terraform-aws-dataworks-htme
+    var_files:
+    - pipeline/vars.yml
+resource_types:
+- name: pull-request
+  source:
+    repository: teliaoss/github-pr-resource
+    tag: latest
+  type: docker-image
+resources:
+- check_every: 5m
+  name: terraform-aws-dataworks-htme-pr
+  source:
+    access_token: ((dataworks-secrets.concourse_github_pat))
+    repository: dwp/terraform-aws-dataworks-htme
+  type: pull-request
+  webhook_token: ((dataworks.concourse_github_webhook_token))
+- check_every: 5m
+  name: terraform-aws-dataworks-htme-update-pipeline
+  source:
+    branch: master
+    paths:
+    - ci/*
+    - aviator.yml
+    repository: dwp/terraform-aws-dataworks-htme
+    uri: https://github.com/dwp/terraform-aws-dataworks-htme.git
+  type: git
+  webhook_token: ((dataworks.concourse_github_webhook_token))
+tag: 0.0.1

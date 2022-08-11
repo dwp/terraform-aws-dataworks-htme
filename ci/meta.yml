@@ -1,0 +1,84 @@
+meta:
+  plan:
+    terraform-common-config:
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: dwpdigital/jinja-yaml-aws
+            tag: 0.0.5
+        params:
+          TF_INPUT: false
+          AWS_REGION: ((dataworks.aws_region))
+          TF_CLI_ARGS_apply: -lock-timeout=300s
+          TF_CLI_ARGS_plan: -lock-timeout=300s
+          TF_VAR_slack_webhook_url: ((dataworks.slack_webhook_url))
+
+    linting-shell:
+      task: linting-shell
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: koalaman/shellcheck-alpine
+            tag: latest
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              find . -name "*.sh" | cat >> shell-list
+              # Ignore SC2154 as it will fail all terraform vars that are passed to scripts
+              # Ignore SC1091 due to sourcing of files that aren't in the same path locally so shellcheck will fail, but these files are on the boxes
+              for i in $(cat shell-list); do shellcheck -e SC2154 -e SC1091 $i; done
+          dir: terraform-aws-dataworks-htme
+        inputs:
+          - name: terraform-aws-dataworks-htme
+
+    terraform-fmt:
+      task: terraform-fmt
+      .: (( inject meta.plan.terraform-common-config ))
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ((dataworks.terraform_repository))
+            tag: ((dataworks.terraform_14_version))
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              terraform init
+              terraform fmt -recursive -check=true
+          dir: terraform-aws-dataworks-htme
+        inputs:
+          - name: terraform-aws-dataworks-htme
+        outputs:
+          - name: terraform-fmt
+
+    terraform-validate:
+      task: terraform-validate
+      .: (( inject meta.plan.terraform-common-config ))
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ((dataworks.terraform_repository))
+            tag: ((dataworks.terraform_14_version))
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              terraform init
+              terraform validate
+          dir: terraform-aws-dataworks-htme
+        inputs:
+          - name: terraform-aws-dataworks-htme
+        outputs:
+          - name: terraform-validate
