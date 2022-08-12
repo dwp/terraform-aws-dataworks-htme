@@ -59,11 +59,11 @@ No modules.
 | [aws_iam_role_policy_attachment.htme_ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_launch_template.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_launch_template.htme_fallback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
-| [aws_s3_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [aws_secretsmanager_secret.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
@@ -191,7 +191,6 @@ No modules.
 | <a name="input_sns_topic_arn_monitoring_arn"></a> [sns\_topic\_arn\_monitoring\_arn](#input\_sns\_topic\_arn\_monitoring\_arn) | The ARN of the monitoring topic to send alerts and notifcations to. | `string` | n/a | yes |
 | <a name="input_spring_profiles"></a> [spring\_profiles](#input\_spring\_profiles) | Specifies the spring profiles to pass to the HTME application. | `string` | `"aesCipherService,secureHttpClient,httpDataKeyService,realHbaseDataSource,awsConfiguration,outputToS3,batchRun,weakRng,gzCompressor"` | no |
 | <a name="input_sqs_messages_group_id_retries"></a> [sqs\_messages\_group\_id\_retries](#input\_sqs\_messages\_group\_id\_retries) | The SQS message group ID that failed topic retry messages should be sent to. | `string` | `"retried_collection_exports"` | no |
-| <a name="input_subnet_cidrs"></a> [subnet\_cidrs](#input\_subnet\_cidrs) | A list of subnet CIDR addresses that HTME should be deployed into. | `list(string)` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet IDs that HTME should be deployed into. | `list(string)` | n/a | yes |
 | <a name="input_suspended_processes"></a> [suspended\_processes](#input\_suspended\_processes) | A list of processes to suspend for the Auto Scaling Group. The allowed values are Launch, Terminate, HealthCheck, ReplaceUnhealthy, AZRebalance, AlarmNotification, ScheduledActions, AddToLoadBalancer. We default to AZRebalance as we don't want to suspend HTME instances mid running due to uneven instances across AZs. | `list(string)` | <pre>[<br>  "AZRebalance"<br>]</pre> | no |
 | <a name="input_uc_export_to_crown_status_table_arn"></a> [uc\_export\_to\_crown\_status\_table\_arn](#input\_uc\_export\_to\_crown\_status\_table\_arn) | The ARN of the uc\_export\_to\_crown\_status table. | `string` | n/a | yes |
