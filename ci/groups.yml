@@ -1,8 +1,8 @@
 groups:
-  - name: pull-request
+  - name: module
     jobs:
-      - terraform-aws-dataworks-htme-pr
-
+      - pull-request
+      
   - name: update-pipeline
     jobs:
       - update-pipeline

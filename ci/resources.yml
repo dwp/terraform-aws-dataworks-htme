@@ -7,15 +7,6 @@ resources:
     check_every: 5m
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
-  # - name: terraform-aws-dataworks-htme
-  #   type: git
-  #   source:
-  #     branch: master
-  #     repository: dwp/terraform-aws-dataworks-htme
-  #     uri: https://github.com/dwp/terraform-aws-dataworks-htme.git
-  #   check_every: 720h
-  #   webhook_token: ((dataworks.concourse_github_webhook_token))
-
   - name: terraform-aws-dataworks-htme-update-pipeline
     type: git
     source:

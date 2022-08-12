@@ -1,5 +1,5 @@
 jobs:
-  - name: terraform-aws-dataworks-htme-pr
+  - name: pull-request
     max_in_flight: 1
     plan:
       - get: terraform-aws-dataworks-htme-pr
