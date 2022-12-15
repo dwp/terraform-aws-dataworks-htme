@@ -31,6 +31,17 @@ export HTTPS_PROXY="$https_proxy"
 export no_proxy="${non_proxied_endpoints}"
 export NO_PROXY="$no_proxy"
 
+# Support for HCS Image (Single Vol)
+echo "Disable iptables (AWS security group rules take precedence)"
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -F
+
+# Support for HCS Image (Single Vol)
+lvextend -l 100%FREE /dev/rootvg/optvol
+xfs_growfs /dev/mapper/rootvg-optvol
+
 echo "Configure AWS Inspector"
 cat > /etc/init.d/awsagent.env << AWSAGENTPROXYCONFIG
 export https_proxy=$https_proxy
