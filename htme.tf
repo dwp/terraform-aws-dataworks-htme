@@ -11,7 +11,7 @@ resource "aws_launch_template" "htme" {
   }
 
   block_device_mappings {
-    device_name = "/dev/xvda"
+    device_name = "/dev/sda1"
 
     ebs {
       volume_size           = var.ebs_size
@@ -72,7 +72,7 @@ resource "aws_launch_template" "htme_fallback" {
   }
 
   block_device_mappings {
-    device_name = "/dev/xvda"
+    device_name = "/dev/sda1"
 
     ebs {
       volume_size           = var.ebs_size
