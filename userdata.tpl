@@ -39,6 +39,8 @@ iptables -P FORWARD ACCEPT
 iptables -F
 
 # Support for HCS Image (Single Vol)
+lvextend -L50G /dev/rootvg/varlogvol
+xfs_growfs /dev/mapper/rootvg-varlogvol
 lvextend -l 100%FREE /dev/rootvg/optvol
 xfs_growfs /dev/mapper/rootvg-optvol
 
