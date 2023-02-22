@@ -41,7 +41,7 @@ module "terratest_htme" {
   common_tags    = local.common_tags
 
   # Launch Template
-  image_id               = var.al2_hardened_ami_id #Need to identify
+  image_id               = var.al2_hardened_ami_id
   instance_type          = "t2.small"
   fallback_instance_type = "t3.small"
   ebs_size               = 167
