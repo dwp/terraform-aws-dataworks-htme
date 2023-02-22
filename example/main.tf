@@ -40,6 +40,86 @@ module "terratest_htme_vpc" {
   vpc_cidr_block = "10.100.0.0/24"
 }
 
+resource "aws_dynamodb_table" "terratest_uc_export_to_crown_status_table" {
+  name         = "UCExportToCrownStatus"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "CorrelationId"
+  range_key    = "CollectionName"
+
+  attribute {
+    name = "CorrelationId"
+    type = "S"
+  }
+
+  attribute {
+    name = "CollectionName"
+    type = "S"
+  }
+
+  ttl {
+    attribute_name = "TimeToExist"
+    enabled        = true
+  }
+
+  tags = merge(
+    local.common_tags,
+    tomap({
+      Name = "terratestUCExportToCrownStatus"
+    })
+  )
+}
+
+resource "aws_dynamodb_table" "terratest_data_pipeline_metadata" {
+  name         = "terratest_data_pipeline_metadata"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Correlation_Id"
+  range_key    = "DataProduct"
+
+  attribute {
+    name = "Correlation_Id"
+    type = "S"
+  }
+
+  attribute {
+    name = "DataProduct"
+    type = "S"
+  }
+
+  ttl {
+    enabled        = true
+    attribute_name = "TimeToExist"
+  }
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "terratest_data_pipeline_metadata_dynamo"
+    }
+  )
+
+}
+
+resource "aws_dynamodb_table_item" "terratest_data_pipeline_metadata_item" {
+  table_name = aws_dynamodb_table.terratest_data_pipeline_metadata.name
+  hash_key   = aws_dynamodb_table.terratest_data_pipeline_metadata.hash_key
+  range_key  = aws_dynamodb_table.terratest_data_pipeline_metadata.range_key
+
+  item = <<ITEM
+{
+  "Correlation_Id": {"S": "init"},
+  "DataProduct": {"S": "init"},
+  "Run_Id": {"N": "0"},
+  "Date": {"S": "init"},
+  "CurrentStep": {"S": "init"},
+  "Status": {"S": "init"},
+  "Cluster_Id": {"S": "init"},
+  "S3_Prefix": {"S": "init"}
+}
+ITEM
+}
+
+
+
 resource "aws_subnet" "htme" {
   count = length(data.aws_availability_zones.available.names)
   cidr_block = cidrsubnet(
@@ -133,8 +213,8 @@ module "terratest_htme" {
   input_bucket_cmk_arn      = data.terraform_remote_state.ingestion.outputs.input_bucket_cmk.arn
 
   # Logging
-  cw_agent_namespace                              = "/app/htme"
-  cw_agent_controller_namespace                   = "/app/lambda/uc_export_to_crown_controller"
+  cw_agent_namespace                              = "/terratest/app/htme"
+  cw_agent_controller_namespace                   = "/terratest/app/lambda/uc_export_to_crown_controller"
   cw_agent_log_group_name_htme                    = aws_cloudwatch_log_group.htme.name
   cw_agent_log_group_name_acm                     = aws_cloudwatch_log_group.acm_cert_retriever.name
   cw_agent_log_group_name_application             = aws_cloudwatch_log_group.application.name
@@ -149,7 +229,7 @@ module "terratest_htme" {
   cw_agent_disk_io_metrics_collection_interval          = 60
   cw_agent_mem_metrics_collection_interval              = 60
   cw_agent_netstat_metrics_collection_interval          = 60
-  sns_topic_arn_monitoring_arn                          = data.terraform_remote_state.security-tools.outputs.sns_topic_london_monitoring.arn
+  sns_topic_arn_monitoring_arn                          = data.terraform_remote_state.security_tools.outputs.sns_topic_london_monitoring.arn
   sns_topic_arn_completion_incremental                  = aws_sns_topic.export_status_sns_incrementals.arn
   sns_topic_arn_completion_full                         = aws_sns_topic.export_status_sns_fulls.arn
   export_status_sns_fulls_arn                           = aws_sns_topic.export_status_sns_fulls.arn
@@ -185,10 +265,10 @@ module "terratest_htme" {
   scan_width                  = "2"
 
 
-  uc_export_to_crown_status_table_name = aws_dynamodb_table.uc_export_to_crown_status_table.name
-  uc_export_to_crown_status_table_arn  = aws_dynamodb_table.uc_export_to_crown_status_table.arn
-  data_pipeline_metadata_name          = aws_dynamodb_table.data_pipeline_metadata.name
-  data_pipeline_metadata_arn           = aws_dynamodb_table.data_pipeline_metadata.arn
+  uc_export_to_crown_status_table_name = aws_dynamodb_table.terratest_uc_export_to_crown_status_table.name
+  uc_export_to_crown_status_table_arn  = aws_dynamodb_table.terratest_uc_export_to_crown_status_table.arn
+  data_pipeline_metadata_name          = aws_dynamodb_table.terratest_data_pipeline_metadata.name
+  data_pipeline_metadata_arn           = aws_dynamodb_table.terratest_data_pipeline_metadata.arn
   message_delay_seconds                = 1
   manifest_retry_max_attempts          = 2
   manifest_retry_delay_ms              = 1000
@@ -200,6 +280,6 @@ module "terratest_htme" {
   scan_max_result_size                 = var.htme_scan_max_result_size[local.environment]
   use_block_cache                      = var.htme_use_block_cache[local.environment]
   use_timeline_consistency             = var.htme_use_timeline_consistency[local.environment]
-  default_ebs_cmk_arn                  = data.terraform_remote_state.security-tools.outputs.ebs_cmk.arn
+  default_ebs_cmk_arn                  = data.terraform_remote_state.security_tools.outputs.ebs_cmk.arn
   s3_socket_timeout_milliseconds       = var.htme_s3_socket_timeout_milliseconds[local.environment]
 }
