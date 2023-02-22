@@ -152,7 +152,7 @@ module "terratest_htme" {
   dks_endpoint                = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]
   output_batch_size_max_bytes = "1073741824"
   directory_output            = "/tmp/hbase-export"
-  hbase_master_url            = aws_route53_record.hbase.fqdn
+  hbase_master_url            = data.terraform_remote_state.aws_internal_compute.outputs.aws_emr_cluster.fqdn
   max_memory_allocation       = "NOT_SET"
   scan_width                  = "2"
 
@@ -165,13 +165,13 @@ module "terratest_htme" {
   manifest_retry_max_attempts          = 2
   manifest_retry_delay_ms              = 1000
   manifest_retry_multiplier            = 2
-  hbase_client_scanner_timeout_ms      = var.htme_hbase_client_scanner_timeout_ms[local.environment]
-  hbase_rpc_timeout_ms                 = var.htme_hbase_rpc_timeout_ms[local.environment]
-  hbase_rpc_read_timeout_ms            = var.htme_hbase_rpc_read_timeout_ms[local.environment]
+  hbase_client_scanner_timeout_ms      = 600000
+  hbase_rpc_timeout_ms                 = 600000
+  hbase_rpc_read_timeout_ms            = 600000
   pdm_common_model_site_prefix         = "common-model-inputs/data/site/pipeline_success.flag"
-  scan_max_result_size                 = var.htme_scan_max_result_size[local.environment]
-  use_block_cache                      = var.htme_use_block_cache[local.environment]
-  use_timeline_consistency             = var.htme_use_timeline_consistency[local.environment]
+  scan_max_result_size                 = "-1"
+  use_block_cache                      = false
+  use_timeline_consistency             = false
   default_ebs_cmk_arn                  = data.terraform_remote_state.security_tools.outputs.ebs_cmk.arn
-  s3_socket_timeout_milliseconds       = var.htme_s3_socket_timeout_milliseconds[local.environment]
+  s3_socket_timeout_milliseconds       = "180000"
 }

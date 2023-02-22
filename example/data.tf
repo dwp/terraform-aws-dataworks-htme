@@ -19,6 +19,21 @@ data "aws_secretsmanager_secret_version" "terraform_secrets" {
   secret_id = "/concourse/dataworks/terraform"
 }
 
+
+data "terraform_remote_state" "aws_internal_compute" {
+  backend   = "s3"
+  workspace = terraform.workspace
+
+  config = {
+    bucket         = "39d01d46d48c2b153873f655835c77db"
+    key            = "terraform/dataworks/aws-internal-compute.tfstate"
+    region         = "eu-west-1"
+    encrypt        = true
+    kms_key_id     = "arn:aws:kms:eu-west-1:024877303807:key/d4a5b5a0-a979-46ea-b6ae-041fa20d2315"
+    dynamodb_table = "remote_state_locks"
+  }
+}
+
 data "terraform_remote_state" "common" {
   backend   = "s3"
   workspace = terraform.workspace

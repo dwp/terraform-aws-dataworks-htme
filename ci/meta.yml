@@ -87,6 +87,8 @@ meta:
           args:
           - -exc
           - |
+            export TF_VAR_al2_hardened_ami_id=$(cat ../dw-al2-hardened-ami/id)
+            export TF_VAR_htme_version=$(cat ../htme-release/version)
             cp ../terraform-config/terraform.tfvars ./example
             go mod init htme
             go mod tidy
