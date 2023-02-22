@@ -8,6 +8,9 @@ locals {
 
   environment = terraform.workspace == "default" ? "development" : terraform.workspace
 
+  account = {
+    development = "475593055014"
+  }
   hcs_environment = {
     development    = "Dev"
     qa             = "Test"

@@ -37,7 +37,7 @@ module "terratest_htme" {
   # Metadata
   account_number = local.account[local.environment]
   environment    = local.environment
-  region         = var.region
+  region         = "eu-west-1"
   common_tags    = local.common_tags
 
   # Launch Template
