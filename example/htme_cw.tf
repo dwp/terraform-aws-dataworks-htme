@@ -30,3 +30,9 @@ resource "aws_cloudwatch_log_group" "system" {
   retention_in_days = 180
   tags              = local.common_tags
 }
+
+resource "aws_cloudwatch_log_group" "uc_export_to_crown_controller" {
+  name              = local.cw_uc_export_to_crown_controller
+  retention_in_days = 180
+  tags              = local.common_tags
+}

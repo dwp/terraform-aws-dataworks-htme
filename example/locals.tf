@@ -22,7 +22,7 @@ locals {
     development = "dev."
   }
 
-  dw_domain = "${local.env_prefix[local.environment]}dataworks.dwp.gov.uk"
+  dw_domain = "terratest.${local.env_prefix[local.environment]}dataworks.dwp.gov.uk"
 
   cw_agent_namespace            = "/terratest/app/htme"
   cw_agent_controller_namespace = "/terratest/app/lambda/uc_export_to_crown_controller"
@@ -32,5 +32,8 @@ locals {
   cw_agent_log_group_name_application  = "/terratest/app/htme/application"
   cw_agent_log_group_name_boostrapping = "/terratest/app/htme/boostrapping"
   cw_agent_log_group_name_system       = "/terratest/app/htme/system"
+  cw_uc_export_to_crown_controller     = "/terratest/app/htme/uc_export_to_crown_controller"
+
+
 
 }
