@@ -36,8 +36,8 @@ resource "aws_subnet" "htme" {
   tags = merge(
     local.common_tags,
     {
-      "application" = "htme"
-      "Name"        = "htme-private"
+      "application" = "terratest-htme"
+      "Name"        = "terratest-htme-private"
     },
   )
 }
