@@ -161,24 +161,6 @@ resource "aws_s3_bucket_policy" "compaction" {
   policy = data.aws_iam_policy_document.compaction_bucket.json
 }
 
-output "compaction_bucket" {
-  type        = map(string)
-  description = "Compaction Bucket maps"
-  value = {
-    id  = aws_s3_bucket.compaction.id
-    arn = aws_s3_bucket.compaction.arn
-  }
-}
-
-output "compaction_bucket_cmk" {
-  type        = map(string)
-  description = "Compaction key maps"
-  value = {
-    arn = aws_kms_key.compaction_bucket_cmk.arn
-  }
-}
-
-
 
 resource "random_id" "manifest_bucket" {
   byte_length = 16
@@ -311,23 +293,4 @@ resource "aws_s3_bucket_policy" "manifest_bucket" {
   depends_on = [aws_s3_bucket_public_access_block.manifest_bucket]
   bucket     = aws_s3_bucket.manifest_bucket.id
   policy     = data.aws_iam_policy_document.manifest_bucket.json
-}
-
-output "manifest_bucket" {
-  type        = map(string)
-  description = "Manifest Bucket maps"
-  value = {
-    id                                         = aws_s3_bucket.manifest_bucket.id
-    arn                                        = aws_s3_bucket.manifest_bucket.arn
-    streaming_manifest_lifecycle_name_main     = local.manifest_s3_bucket_streaming_manifest_lifecycle_rule_name_main
-    streaming_manifest_lifecycle_name_equality = local.manifest_s3_bucket_streaming_manifest_lifecycle_rule_name_equality
-  }
-}
-
-output "manifest_bucket_cmk" {
-  type        = map(string)
-  description = "Manifest key maps"
-  value = {
-    arn = aws_kms_key.manifest_bucket_cmk.arn
-  }
 }

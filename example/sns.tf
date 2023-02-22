@@ -109,39 +109,3 @@ data "aws_iam_policy_document" "export_status_sns_incrementals" {
     ]
   }
 }
-
-output "uc_export_to_crown_completion_status_sns_topic" {
-  type        = map(string)
-  description = "SNS Topic maps"
-  value = {
-    arn  = aws_sns_topic.export_status_sns_fulls.arn
-    name = aws_sns_topic.export_status_sns_fulls.name
-  }
-}
-
-output "export_status_sns_fulls" {
-  type        = map(string)
-  description = "SNS Topic maps"
-  value = {
-    arn  = aws_sns_topic.export_status_sns_fulls.arn
-    name = aws_sns_topic.export_status_sns_fulls.name
-  }
-}
-
-output "uc_export_to_crown_completion_status_incrementals_sns_topic" {
-  type        = map(string)
-  description = "SNS Topic maps"
-  value = {
-    arn  = aws_sns_topic.export_status_sns_incrementals.arn
-    name = aws_sns_topic.export_status_sns_incrementals.name
-  }
-}
-
-output "export_status_sns_incrementals" {
-  type        = map(string)
-  description = "SNS Topic maps"
-  value = {
-    arn  = aws_sns_topic.export_status_sns_incrementals.arn
-    name = aws_sns_topic.export_status_sns_incrementals.name
-  }
-}
