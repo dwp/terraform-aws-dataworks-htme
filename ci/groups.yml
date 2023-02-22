@@ -1,5 +1,9 @@
 groups:
-  - name: module
+  - name: test
+    jobs:
+    - test
+
+  - name: pull-request
     jobs:
       - pull-request
 
