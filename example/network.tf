@@ -15,7 +15,7 @@ resource "aws_security_group" "terratest_internet_proxy_endpoint" {
 }
 
 resource "aws_vpc_endpoint" "internet_proxy" {
-  vpc_id              = module.internal_compute_vpc.vpc.id
+  vpc_id              = module.terratest_htme_vpc.vpc.id
   service_name        = data.terraform_remote_state.internet_egress.outputs.internet_proxy_service.service_name
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.terratest_internet_proxy_endpoint.id]
