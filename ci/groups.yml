@@ -2,7 +2,7 @@ groups:
   - name: module
     jobs:
       - pull-request
-      
+
   - name: update-pipeline
     jobs:
       - update-pipeline
