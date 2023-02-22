@@ -10,6 +10,7 @@ locals {
 
   account = {
     development = "475593055014"
+    management  = "024877303807"
   }
   hcs_environment = {
     development    = "Dev"
@@ -19,6 +20,24 @@ locals {
     production     = "Production"
     management     = "SP_Tooling"
     management-dev = "DT_Tooling"
+  }
+
+  management_account = {
+    development = "management-dev"
+    qa          = "management-dev"
+    integration = "management-dev"
+    preprod     = "management"
+    production  = "management"
+  }
+
+  crypto_workspace = {
+    management-dev = "management-dev"
+    management     = "management"
+  }
+
+  management_workspace = {
+    management-dev = "default"
+    management     = "management"
   }
 
   env_prefix = {
@@ -36,6 +55,13 @@ locals {
   cw_agent_log_group_name_boostrapping = "/terratest/app/htme/boostrapping"
   cw_agent_log_group_name_system       = "/terratest/app/htme/system"
   cw_uc_export_to_crown_controller     = "/terratest/app/htme/uc_export_to_crown_controller"
+
+  manifest_s3_bucket_streaming_manifest_lifecycle_rule_name_main     = "streaming-manifests-main"
+  manifest_s3_bucket_streaming_manifest_lifecycle_rule_name_equality = "streaming-manifests-equality"
+  manifest_s3_bucket_streaming_manifest_lifecycle_rule_name_audit    = "streaming-manifests-audit"
+  manifest_s3_bucket_export_manifest_lifecycle_rule_name             = "export-manifests"
+
+  htme_s3_manifest_prefix = "${data.terraform_remote_state.ingestion.outputs.manifest_s3_prefixes.base}/export"
 
 
 

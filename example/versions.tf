@@ -8,3 +8,12 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  region = var.region
+  alias  = "management_dns"
+
+  assume_role {
+    role_arn = "arn:aws:iam::${local.account["management"]}:role/${var.assume_role}"
+  }
+}

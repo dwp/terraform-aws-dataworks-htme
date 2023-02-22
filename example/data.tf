@@ -11,7 +11,7 @@ data "local_file" "logging_script" {
 }
 
 data "local_file" "htme_default_topics_ris_csv" {
-  filename = "files/htme/htme_default_topics_ris/htme_default_topics_development.csv"
+  filename = "files/htme/htme_default_topics_ris/htme_default_topics_ris_development.csv"
 }
 
 data "aws_secretsmanager_secret_version" "terraform_secrets" {
@@ -173,4 +173,8 @@ data "terraform_remote_state" "management_dns" {
     kms_key_id     = "arn:aws:kms:eu-west-1:024877303807:key/d4a5b5a0-a979-46ea-b6ae-041fa20d2315"
     dynamodb_table = "remote_state_locks"
   }
+}
+
+
+data "aws_availability_zones" "available" {
 }

@@ -4,7 +4,7 @@ module "terratest_htme_vpc" {
   vpc_name = "vpc-module-test"
   region   = "eu-west-1"
 
-  vpc_cidr_block = "10.100.0.0/24"
+  vpc_cidr_block = "10.100.0.0/18"
 }
 
 resource "aws_security_group" "terratest_internet_proxy_endpoint" {
