@@ -72,8 +72,8 @@ func TestHtme(t *testing.T) {
 	// metricfilteralarmArn := terraform.Output(t, terraformOptionsHtme, "metric_filter_alarm_arn")
 
 	// Verify that our Bucket has been created
-	assert.Equal(t, compactionbucketID, "dwx-test-ses-bucket", "Bucket ID must match")
-	assert.Equal(t, manifestbucketID, "dwx-test-ses-bucket", "Bucket ID must match")
+	assert.Equal(t, compactionbucketID, "terratest-compaction-bucket", "Bucket ID must match")
+	assert.Equal(t, manifestbucketID, "terratest-manifest-bucket", "Bucket ID must match")
 
 	// To get the value of an output variable, run 'terraform output'
 	// Tags := terraform.OutputMap(t, terraformOptionsHtme, "metric_alarm_tags")

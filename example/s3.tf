@@ -12,11 +12,6 @@ resource "aws_s3_bucket_object" "htme_default_topics_ris_csv" {
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
 }
 
-
-resource "random_id" "compaction_bucket" {
-  byte_length = 16
-}
-
 resource "aws_kms_key" "compaction_bucket_cmk" {
   description             = "Terratest Compaction Bucket Master Key"
   deletion_window_in_days = 7
@@ -40,7 +35,7 @@ resource "aws_kms_alias" "compaction_bucket_alias" {
 }
 
 resource "aws_s3_bucket" "compaction" {
-  bucket = random_id.compaction_bucket.hex
+  bucket = "terratest-compaction-bucket"
   acl    = "private"
   tags = merge(
     local.common_tags,
@@ -162,10 +157,6 @@ resource "aws_s3_bucket_policy" "compaction" {
 }
 
 
-resource "random_id" "manifest_bucket" {
-  byte_length = 16
-}
-
 resource "aws_kms_key" "manifest_bucket_cmk" {
   description             = "Terratest Manifest Bucket Master Key"
   deletion_window_in_days = 7
@@ -187,7 +178,7 @@ resource "aws_kms_alias" "manifest_bucket_alias" {
 }
 
 resource "aws_s3_bucket" "manifest_bucket" {
-  bucket = random_id.manifest_bucket.hex
+  bucket = "terratest-manifest-bucket"
   acl    = "private"
 
   tags = merge(
