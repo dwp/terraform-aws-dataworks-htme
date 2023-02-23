@@ -59,8 +59,7 @@ func TestHtme(t *testing.T) {
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.manifest_bucket")
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_fulls")
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_incrementals")
-	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "module.terratest_metric_filter_alarm.aws_cloudwatch_log_metric_filter.metric_filter")
-	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "module.terratest_metric_filter_alarm.aws_cloudwatch_metric_alarm.metric_alarm")
+
 
 
 	// Run `terraform output` to get the value of an output variable
@@ -70,10 +69,7 @@ func TestHtme(t *testing.T) {
 	snstopicincrementalName := terraform.Output(t, terraformOptionsHtme, "export_status_sns_incrementals.name")
 	asgName := terraform.Output(t, terraformOptionsHtme, "asg_name")
 	sgID := terraform.Output(t, terraformOptionsHtme, "sg_id")
-	// metricfilterID := terraform.Output(t, terraformOptionsHtme, "metric_filter_id")
-	// terratestloggroupID := terraform.Output(t, terraformOptionsHtme, "terratest_log_group_id")
-	// topicArn := terraform.Output(t, terraformOptionsHtme, "topic_arn")
-	// metricfilteralarmArn := terraform.Output(t, terraformOptionsHtme, "metric_filter_alarm_arn")
+
 
 	// Verify that our Bucket has been created
 	assert.Equal(t, compactionbucketID, "terratest-compaction-bucket", "Bucket ID must match")
@@ -83,32 +79,8 @@ func TestHtme(t *testing.T) {
 	assert.Equal(t, asgName, "htme_asg", "ASG name must match")
 
 
-	// To get the value of an output variable, run 'terraform output'
-	// Tags := terraform.OutputMap(t, terraformOptionsHtme, "metric_alarm_tags")
-
 	lengthOfsgID := len(sgID)
 	// Verify the SG parameters
 	assert.NotEqual(t, lengthOfsgID, 0, "SG ID Output MUST be populated")
 
-	// // Check that we get back the outputs that we expect
-	// assert.Equal(t, "DataWorks", Tags["Application"])
-	// assert.Equal(t, "PRJ0022507", Tags["Business-Project"])
-	// assert.Equal(t, "Data and Analytics", Tags["Function"])
-	// assert.Equal(t, "TerratestAlarm", Tags["Name"])
-
-	// Checks topic arn exists
-	// lengthOftopicArn := len(topicArn)
-	// assert.NotEqual(t, lengthOftopicArn, 0, "ARN Output MUST be populated")
-
-	// Checks filter id exists
-	// lengthOfmetricfilterID := len(metricfilterID)
-	// assert.NotEqual(t, lengthOfmetricfilterID, 0, "ID Output MUST be populated")
-
-	// Checks log group id exists
-	// lengthOfterratestloggroupID := len(terratestloggroupID)
-	// assert.NotEqual(t, lengthOfterratestloggroupID, 0, "ID Output MUST be populated")
-
-	// Checks filter alarm arn exists
-	// lengthOfmetricfilteralarmArn := len(metricfilteralarmArn)
-	// assert.NotEqual(t, lengthOfmetricfilteralarmArn, 0, "ARN Output MUST be populated")
 }
