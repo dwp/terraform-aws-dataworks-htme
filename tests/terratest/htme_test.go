@@ -66,6 +66,10 @@ func TestHtme(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	compactionbucketID := terraform.Output(t, terraformOptionsHtme, "compaction_bucket.id")
 	manifestbucketID := terraform.Output(t, terraformOptionsHtme, "manifest_bucket.id")
+	snstopicfullName := terraform.Output(t, terraformOptionsHtme, "export_status_sns_fulls.name")
+	snstopicincrementalName := terraform.Output(t, terraformOptionsHtme, "export_status_sns_incrementals.name")
+	asgName := terraform.Output(t, terraformOptionsHtme, "asg_name")
+	sgID := terraform.Output(t, terraformOptionsHtme, "sg_id")
 	// metricfilterID := terraform.Output(t, terraformOptionsHtme, "metric_filter_id")
 	// terratestloggroupID := terraform.Output(t, terraformOptionsHtme, "terratest_log_group_id")
 	// topicArn := terraform.Output(t, terraformOptionsHtme, "topic_arn")
@@ -74,9 +78,17 @@ func TestHtme(t *testing.T) {
 	// Verify that our Bucket has been created
 	assert.Equal(t, compactionbucketID, "terratest-compaction-bucket", "Bucket ID must match")
 	assert.Equal(t, manifestbucketID, "terratest-manifest-bucket", "Bucket ID must match")
+	assert.Equal(t, snstopicfullName, "export_status_sns_fulls", "Topic name must match")
+	assert.Equal(t, snstopicincrementalName, "export_status_sns_incrementals", "Topic name must match")
+	assert.Equal(t, asgName, "htme_asg", "ASG name must match")
+
 
 	// To get the value of an output variable, run 'terraform output'
 	// Tags := terraform.OutputMap(t, terraformOptionsHtme, "metric_alarm_tags")
+
+	lengthOfsgID := len(sgID)
+	// Verify the SG parameters
+	assert.NotEqual(t, lengthOfsgID, 0, "SG ID Output MUST be populated")
 
 	// // Check that we get back the outputs that we expect
 	// assert.Equal(t, "DataWorks", Tags["Application"])

@@ -74,3 +74,14 @@ output "export_status_sns_incrementals" {
     name = aws_sns_topic.export_status_sns_incrementals.name
   }
 }
+
+
+output "sg_id" {
+  value       = module.terratest_htme.sg_id
+  description = "HTME security group ID."
+}
+
+output "asg_name" {
+  value       = module.terratest_htme.asg_name
+  description = "HTME Auto-scaling group name."
+}
