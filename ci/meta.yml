@@ -33,7 +33,6 @@ meta:
           type: docker-image
           source:
             repository: dwpdigital/all-terra-tools-docker
-            tag: 0.0.5
         params:
           TF_INPUT: false
           AWS_REGION: ((dataworks.aws_region))
