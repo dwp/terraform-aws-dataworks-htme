@@ -32,7 +32,7 @@ meta:
         image_resource:
           type: docker-image
           source:
-            repository: dwpdigital/jinja-yaml-aws
+            repository: dwpdigital/all-terra-tools-docker
             tag: 0.0.5
         params:
           TF_INPUT: false
