@@ -12,24 +12,49 @@ provider "aws" {
     }
   }
 
-  assume_role {
+  /* assume_role {
     role_arn = "arn:aws:iam::${var.test_account}:role/${var.assume_role}"
 
-  }
+  } */
 
 }
 
-variable "assume_role" {
+/* variable "assume_role" {
   type        = string
   default     = "ci"
   description = "Role to assume"
-}
+} */
 
 variable "test_account" {
   type        = string
   description = "Test AWS Account number"
 
 }
+
+variable "mgmt_account" {
+  type        = string
+  description = "Mgmt AWS Account number"
+
+}
+
+variable "state_file_bucket" {
+  type        = string
+  description = "State file bucket"
+
+}
+
+variable "state_file_kms_key" {
+  type        = string
+  description = "State file key"
+
+}
+
+variable "state_file_region" {
+  type        = string
+  description = "State file region"
+
+}
+
 
 module "terratest_htme" {
   source = "../"
