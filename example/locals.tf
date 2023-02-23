@@ -44,7 +44,7 @@ locals {
     development = "dev."
   }
 
-  dw_domain = "terratest.${local.env_prefix[local.environment]}dataworks.dwp.gov.uk"
+  dw_domain = "terratest.${local.env_prefix[local.environment]}${var.dataworks_domain_name}"
 
   cw_agent_namespace            = "/terratest/app/htme"
   cw_agent_controller_namespace = "/terratest/app/lambda/uc_export_to_crown_controller"
