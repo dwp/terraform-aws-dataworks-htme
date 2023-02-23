@@ -12,18 +12,18 @@ provider "aws" {
     }
   }
 
-  /* assume_role {
+  assume_role {
     role_arn = "arn:aws:iam::${var.test_account}:role/${var.assume_role}"
 
-  } */
+  }
 
 }
 
-/* variable "assume_role" {
+variable "assume_role" {
   type        = string
   default     = "ci"
   description = "Role to assume"
-} */
+}
 
 variable "test_account" {
   type        = string
