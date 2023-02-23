@@ -55,17 +55,25 @@ func TestHtme(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptionsHtme)
 
 	// website::tag::3::Use the go struct to introspect the plan values.
-	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_cloudwatch_log_group.terratest_log_group")
-	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.terratest_topic")
+	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.compaction_bucket")
+	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.manifest_bucket")
+	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_fulls")
+	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_incrementals")
 	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "module.terratest_metric_filter_alarm.aws_cloudwatch_log_metric_filter.metric_filter")
 	// terraform.RequirePlannedValuesMapKeyExists(t, plan, "module.terratest_metric_filter_alarm.aws_cloudwatch_metric_alarm.metric_alarm")
 
 
 	// Run `terraform output` to get the value of an output variable
+	compactionbucketID := terraform.Output(t, terraformOptionsHtme, "compaction_bucket.id")
+	manifestbucketID := terraform.Output(t, terraformOptionsHtme, "manifest_bucket.id")
 	// metricfilterID := terraform.Output(t, terraformOptionsHtme, "metric_filter_id")
 	// terratestloggroupID := terraform.Output(t, terraformOptionsHtme, "terratest_log_group_id")
 	// topicArn := terraform.Output(t, terraformOptionsHtme, "topic_arn")
 	// metricfilteralarmArn := terraform.Output(t, terraformOptionsHtme, "metric_filter_alarm_arn")
+
+	// Verify that our Bucket has been created
+	assert.Equal(t, compactionbucketID, "dwx-test-ses-bucket", "Bucket ID must match")
+	assert.Equal(t, manifestbucketID, "dwx-test-ses-bucket", "Bucket ID must match")
 
 	// To get the value of an output variable, run 'terraform output'
 	// Tags := terraform.OutputMap(t, terraformOptionsHtme, "metric_alarm_tags")
