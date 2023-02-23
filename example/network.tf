@@ -78,7 +78,7 @@ resource "aws_service_discovery_service" "htme_services" {
 }
 
 resource "aws_service_discovery_private_dns_namespace" "htme_services" {
-  name = "${local.environment}.htme.services.${jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary)["dataworks_domain_name"]}"
+  name = "${local.environment}.htme.services.${var.dataworks_domain_name}"
   vpc  = module.terratest_htme_vpc.vpc.id
   tags = merge(local.common_tags, { Name = "terratest_htme_services" })
 }

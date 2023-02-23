@@ -12,10 +12,10 @@ provider "aws" {
     }
   }
 
-  assume_role {
+  /* assume_role {
     role_arn = "arn:aws:iam::${var.test_account}:role/${var.assume_role}"
 
-  }
+  } */
 
 }
 
@@ -52,6 +52,12 @@ variable "state_file_kms_key" {
 variable "state_file_region" {
   type        = string
   description = "State file region"
+
+}
+
+variable "dataworks_domain_name" {
+  type        = string
+  description = "Domain name"
 
 }
 
