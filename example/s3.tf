@@ -50,7 +50,7 @@ resource "aws_s3_bucket" "compaction" {
 
   logging {
     target_bucket = data.terraform_remote_state.security_tools.outputs.logstore_bucket.id
-    target_prefix = "S3Logs/${random_id.compaction_bucket.hex}/ServerLogs"
+    target_prefix = "S3Logs/terratest-compaction-bucket/ServerLogs"
   }
 
   lifecycle_rule {
@@ -194,7 +194,7 @@ resource "aws_s3_bucket" "manifest_bucket" {
 
   logging {
     target_bucket = data.terraform_remote_state.security_tools.outputs.logstore_bucket.id
-    target_prefix = "S3Logs/${random_id.manifest_bucket.hex}/ServerLogs"
+    target_prefix = "S3Logs/terratest-manifest-bucket/ServerLogs"
   }
 
   lifecycle_rule {
