@@ -6,7 +6,6 @@ variable "al2_hardened_ami_id" {
 variable "htme_version" {
   description = "Hbase to Mongo export JAR release version"
   type        = string
-  default     = "1.0.41"
 }
 
 variable "htme_s3_prefix" {
