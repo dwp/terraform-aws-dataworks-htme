@@ -4,9 +4,3 @@ resource_types:
     source:
       repository: teliaoss/github-pr-resource
       tag: latest
-
-  - name: slack-notification
-    type: docker-image
-    source:
-      repository: cfcommunity/slack-notification-resource
-      tag: latest

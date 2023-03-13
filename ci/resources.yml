@@ -1,23 +1,4 @@
 resources:
-  - name: terraform-aws-dataworks-htme
-    type: git
-    source:
-      branch: test
-      access_token: ((dataworks-secrets.concourse_github_pat))
-      uri: https://github.com/dwp/terraform-aws-dataworks-htme.git
-    check_every: 5m
-    webhook_token: ((dataworks.concourse_github_webhook_token))
-
-  - name: terraform-aws-dataworks-htme-test
-    type: git
-    source:
-      branch: test
-      username: ((dataworks.concourse_github_username))
-      password: ((dataworks-secrets.concourse_github_pat))
-      uri: https://github.com/dwp/terraform-aws-dataworks-htme.git
-    check_every: 5m
-    webhook_token: ((dataworks.concourse_github_webhook_token))
-
   - name: terraform-aws-dataworks-htme-pr
     type: pull-request
     source:
@@ -37,8 +18,3 @@ resources:
         - aviator.yml
     check_every: 5m
     webhook_token: ((dataworks.concourse_github_webhook_token))
-
-  - name: slack
-    type: slack-notification
-    source:
-      url: ((dataworks.slack_webhook_url))

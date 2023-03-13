@@ -2,39 +2,39 @@ jobs:
   - name: pull-request
     max_in_flight: 1
     plan:
-    - get: terraform-aws-dataworks-htme-pr
-      trigger: true
-      version: every
-    - put: terraform-aws-dataworks-htme-pr
-      params:
-        context: $BUILD_JOB_NAME
-        path: terraform-aws-dataworks-htme-pr
-        status: pending
-    - .: (( inject meta.plan.terraform-bootstrap ))
-      input_mapping:
-        terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
-    - task: pre-checks
-      .: (( inject meta.plan.pre-checks ))
-      input_mapping:
-        terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
-      on_failure:
-        put: terraform-aws-dataworks-htme-pr
-        params:
-          context: $BUILD_JOB_NAME
-          path: terraform-aws-dataworks-htme-pr
-          status: failure
-      on_success:
-        put: terraform-aws-dataworks-htme-pr
-        params:
-          context: $BUILD_JOB_NAME
-          path: terraform-aws-dataworks-htme-pr
-          status: success
-    - .: (( inject meta.plan.linting-shell ))
-      input_mapping:
-        terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
-      on_failure:
-        put: terraform-aws-dataworks-htme-pr
+      - get: terraform-aws-dataworks-htme-pr
+        trigger: true
+        version: every
+      - put: terraform-aws-dataworks-htme-pr
         params:
           path: terraform-aws-dataworks-htme-pr
-          status: failure
-    .: (( inject meta.plan.notify ))
+          status: pending
+      - .: (( inject meta.plan.linting-shell ))
+        input_mapping:
+          terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+        on_failure:
+          put: terraform-aws-dataworks-htme-pr
+          params:
+            path: terraform-aws-dataworks-htme-pr
+            status: failure
+      - .: (( inject meta.plan.terraform-fmt ))
+        input_mapping:
+          terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+        on_failure:
+          put: terraform-aws-dataworks-htme-pr
+          params:
+            path: terraform-aws-dataworks-htme-pr
+            status: failure
+      - .: (( inject meta.plan.terraform-validate ))
+        input_mapping:
+          terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-pr
+        on_failure:
+          put: terraform-aws-dataworks-htme-pr
+          params:
+            path: terraform-aws-dataworks-htme-pr
+            status: failure
+        on_success:
+          put: terraform-aws-dataworks-htme-pr
+          params:
+            path: terraform-aws-dataworks-htme-pr
+            status: success

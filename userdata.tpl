@@ -94,7 +94,7 @@ chmod u+x /opt/htme/htme_cloudwatch.sh
     "${cwa_disk_measurement_metrics_collection_interval}" "${cwa_disk_io_metrics_collection_interval}" \
     "${cwa_mem_metrics_collection_interval}" "${cwa_netstat_metrics_collection_interval}" "${cwa_log_group_name_htme}" \
     "${cwa_log_group_name_acm}" "${cwa_log_group_name_application}" "${cwa_log_group_name_boostrapping}"\
-    "${cwa_log_group_name_system}" "$AWS_DEFAULT_REGION"
+    "${cwa_log_group_name_system}" "$AWS_DEFAULT_REGION" 
 
 echo "Download & install latest hbase-to-mongo-export service artifact"
 VERSION="${htme_version}"
