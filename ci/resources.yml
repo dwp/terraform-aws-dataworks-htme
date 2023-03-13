@@ -38,6 +38,7 @@ resources:
     check_every: 5m
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
+<<<<<<< HEAD
   - name: dw-al2-hardened-ami
     type: ami
     check_every: 5m
@@ -59,6 +60,8 @@ resources:
       access_token: ((dataworks-secrets.concourse_github_pat))
     check_every: 10m
 
+=======
+>>>>>>> e01d0ff (Dtwrks 849 (#8))
   - name: slack
     type: slack-notification
     source:

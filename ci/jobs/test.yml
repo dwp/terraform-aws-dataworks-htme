@@ -1,12 +1,15 @@
 jobs:
 - name: test
   plan:
+<<<<<<< HEAD
   - get: htme-release
     trigger: true
     version: every
   - get: dw-al2-hardened-ami
     trigger: true
     version: every
+=======
+>>>>>>> e01d0ff (Dtwrks 849 (#8))
   - get: terraform-aws-dataworks-htme-test
     trigger: true
     version: every
