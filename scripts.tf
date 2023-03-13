@@ -52,4 +52,3 @@ resource "aws_s3_bucket_object" "wrapper_checker_script" {
   content    = data.local_file.wrapper_checker_script.content
   kms_key_id = var.config_bucket_cmk_arn
 }
-
