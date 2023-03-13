@@ -59,18 +59,16 @@ No modules.
 | [aws_iam_role_policy_attachment.htme_ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_launch_template.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_launch_template.htme_fallback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
-| [aws_s3_bucket_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_bucket_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_bucket_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_bucket_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [aws_s3_bucket_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [aws_s3_bucket_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_s3_bucket_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_s3_bucket_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_s3_bucket_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_s3_bucket_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
 | [aws_secretsmanager_secret.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_iam_policy_document.htme_main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.htme_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_sqs_queue.corporate_storage_export_sqs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
-| [aws_sqs_queue.scheduler_sqs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
 | [local_file.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 | [local_file.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 | [local_file.htme_shell_script](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
@@ -90,7 +88,7 @@ No modules.
 | <a name="input_asg_max"></a> [asg\_max](#input\_asg\_max) | The maximum number of instances in a given HTME ASG. | `number` | `3` | no |
 | <a name="input_asg_min"></a> [asg\_min](#input\_asg\_min) | The minimum number of instances in a given HTME ASG. | `number` | `0` | no |
 | <a name="input_asg_name"></a> [asg\_name](#input\_asg\_name) | The name of the Auto Scaling Group (ASG) used to deploy HTME. | `string` | `"htme_asg"` | no |
-| <a name="input_asg_ssm_enabled"></a> [asg\_ssm\_enabled](#input\_asg\_ssm\_enabled) | n/a | `string` | `"False"` | no |
+| <a name="input_asg_ssm_enabled"></a> [asg\_ssm\_enabled](#input\_asg\_ssm\_enabled) | Enable SSM on ASG | `string` | `"False"` | no |
 | <a name="input_blocked_topics"></a> [blocked\_topics](#input\_blocked\_topics) | A CSV of blocked topics that aren't allowed to be exported to Crown | `string` | `"db.no.topicIs.blockedATM"` | no |
 | <a name="input_common_logging_sh_content_hash"></a> [common\_logging\_sh\_content\_hash](#input\_common\_logging\_sh\_content\_hash) | The content as a hash of the common logging script to deploy to HTME. | `string` | n/a | yes |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A set of common tags to identify the HTME application. | `map(string)` | n/a | yes |
@@ -98,7 +96,7 @@ No modules.
 | <a name="input_config_bucket_cmk_arn"></a> [config\_bucket\_cmk\_arn](#input\_config\_bucket\_cmk\_arn) | The ARN of the KMS Key belonging to the Config S3 Bucket. | `string` | n/a | yes |
 | <a name="input_corporate_storage_export_sqs_arn"></a> [corporate\_storage\_export\_sqs\_arn](#input\_corporate\_storage\_export\_sqs\_arn) | The ARN of the Corporate Storage Export SQS Queue. | `string` | n/a | yes |
 | <a name="input_corporate_storage_export_sqs_key_arn"></a> [corporate\_storage\_export\_sqs\_key\_arn](#input\_corporate\_storage\_export\_sqs\_key\_arn) | The ARN of the KMS Key belonging to the Corporate Storage Export SQS Queue. | `string` | n/a | yes |
-| <a name="input_corporate_storage_export_sqs_queue_name"></a> [corporate\_storage\_export\_sqs\_queue\_name](#input\_corporate\_storage\_export\_sqs\_queue\_name) | The name of the corporate storage export SQS Queue. | `string` | n/a | yes |
+| <a name="input_corporate_storage_export_sqs_queue_url"></a> [corporate\_storage\_export\_sqs\_queue\_url](#input\_corporate\_storage\_export\_sqs\_queue\_url) | The URL of the corporate storage export SQS Queue. | `string` | n/a | yes |
 | <a name="input_cw_agent_controller_namespace"></a> [cw\_agent\_controller\_namespace](#input\_cw\_agent\_controller\_namespace) | The CloudWatch namespace belonging to the uc\_export\_to\_crown\_controller Lambda. | `string` | n/a | yes |
 | <a name="input_cw_agent_cpu_metrics_collection_interval"></a> [cw\_agent\_cpu\_metrics\_collection\_interval](#input\_cw\_agent\_cpu\_metrics\_collection\_interval) | The interval at which the Cloud Watch agent should collect CPU metrics. | `number` | `60` | no |
 | <a name="input_cw_agent_disk_io_metrics_collection_interval"></a> [cw\_agent\_disk\_io\_metrics\_collection\_interval](#input\_cw\_agent\_disk\_io\_metrics\_collection\_interval) | The interval at which the Cloud Watch agent should collect disk io metrics. | `number` | `60` | no |
@@ -164,10 +162,10 @@ No modules.
 | <a name="input_manifest_retry_max_attempts"></a> [manifest\_retry\_max\_attempts](#input\_manifest\_retry\_max\_attempts) | The number of retries to attempt to write to the manifest bucket before giving up. | `number` | `2` | no |
 | <a name="input_manifest_retry_multiplier"></a> [manifest\_retry\_multiplier](#input\_manifest\_retry\_multiplier) | The backoff multiplier (the retry delay is this multiple of the previous delay) for retrying writes to the manifest bucket. | `number` | `2` | no |
 | <a name="input_max_memory_allocation"></a> [max\_memory\_allocation](#input\_max\_memory\_allocation) | The Max memory allocation for heap. | `string` | `"NOT_SET"` | no |
-| <a name="input_message_delay_seconds"></a> [message\_delay\_seconds](#input\_message\_delay\_seconds) | n/a | `number` | `1` | no |
+| <a name="input_message_delay_seconds"></a> [message\_delay\_seconds](#input\_message\_delay\_seconds) | Message delay seconds | `number` | `1` | no |
 | <a name="input_non_proxied_endpoints"></a> [non\_proxied\_endpoints](#input\_non\_proxied\_endpoints) | A string of service endpoints delimited by a comma (','). | `string` | n/a | yes |
-| <a name="input_output_batch_size_max_bytes"></a> [output\_batch\_size\_max\_bytes](#input\_output\_batch\_size\_max\_bytes) | Max size in bytes of output chunks. | `string` | `"1073741824"` | no |
-| <a name="input_pdm_common_model_site_prefix"></a> [pdm\_common\_model\_site\_prefix](#input\_pdm\_common\_model\_site\_prefix) | n/a | `string` | `"common-model-inputs/data/site/pipeline_success.flag"` | no |
+| <a name="input_output_batch_size_max_bytes"></a> [output\_batch\_size\_max\_bytes](#input\_output\_batch\_size\_max\_bytes) | Max size in bytes of output chunks. | `number` | `"1073741824"` | no |
+| <a name="input_pdm_common_model_site_prefix"></a> [pdm\_common\_model\_site\_prefix](#input\_pdm\_common\_model\_site\_prefix) | PDM model site prefix | `string` | `"common-model-inputs/data/site/pipeline_success.flag"` | no |
 | <a name="input_public_cert_bucket_arn"></a> [public\_cert\_bucket\_arn](#input\_public\_cert\_bucket\_arn) | The S3 Bucket ARN for public certificates. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Name of the region to deploy to. | `string` | n/a | yes |
 | <a name="input_root_ca_arn"></a> [root\_ca\_arn](#input\_root\_ca\_arn) | The ARN of the root CA certificate. | `string` | n/a | yes |
@@ -185,7 +183,7 @@ No modules.
 | <a name="input_s3_socket_timeout_milliseconds"></a> [s3\_socket\_timeout\_milliseconds](#input\_s3\_socket\_timeout\_milliseconds) | How long HTME should wait for an s3 connection before giving up | `string` | `"180000"` | no |
 | <a name="input_scan_max_result_size"></a> [scan\_max\_result\_size](#input\_scan\_max\_result\_size) | The maximum number of rows to place in the client side cache. Default is unlimited. | `string` | `"-1"` | no |
 | <a name="input_scan_width"></a> [scan\_width](#input\_scan\_width) | How much of the keyspace each scanner should scan. | `string` | `"2"` | no |
-| <a name="input_scheduler_sqs_queue_name"></a> [scheduler\_sqs\_queue\_name](#input\_scheduler\_sqs\_queue\_name) | The name of the scheduler SQS Queue. | `string` | n/a | yes |
+| <a name="input_scheduler_sqs_queue_url"></a> [scheduler\_sqs\_queue\_url](#input\_scheduler\_sqs\_queue\_url) | The URL of the scheduler SQS Queue. | `string` | n/a | yes |
 | <a name="input_sns_topic_arn_completion_full"></a> [sns\_topic\_arn\_completion\_full](#input\_sns\_topic\_arn\_completion\_full) | The ARN of the SNS topic to send the adg triggering message for full exports. | `string` | n/a | yes |
 | <a name="input_sns_topic_arn_completion_incremental"></a> [sns\_topic\_arn\_completion\_incremental](#input\_sns\_topic\_arn\_completion\_incremental) | The ARN of the SNS topic to send the adg triggering message for incremental exports. | `string` | n/a | yes |
 | <a name="input_sns_topic_arn_monitoring_arn"></a> [sns\_topic\_arn\_monitoring\_arn](#input\_sns\_topic\_arn\_monitoring\_arn) | The ARN of the monitoring topic to send alerts and notifcations to. | `string` | n/a | yes |
@@ -197,11 +195,12 @@ No modules.
 | <a name="input_uc_export_to_crown_status_table_name"></a> [uc\_export\_to\_crown\_status\_table\_name](#input\_uc\_export\_to\_crown\_status\_table\_name) | The name of the uc\_export\_to\_crown\_status table. | `string` | n/a | yes |
 | <a name="input_use_block_cache"></a> [use\_block\_cache](#input\_use\_block\_cache) | Whether HTME should enable scan cache blocks on the hbase scanner | `string` | `"false"` | no |
 | <a name="input_use_timeline_consistency"></a> [use\_timeline\_consistency](#input\_use\_timeline\_consistency) | Whether HTME should scan the region replicas or only the master. Default of false means strong consistency. | `string` | `"false"` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC to deploy HTME into. | `any` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC to deploy HTME into. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_htme_default_topics_csv"></a> [htme\_default\_topics\_csv](#output\_htme\_default\_topics\_csv) | n/a |
+| <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | HTME Auto-scaling group name. |
+| <a name="output_sg_id"></a> [sg\_id](#output\_sg\_id) | HTME security group ID. |
 <!-- END_TF_DOCS -->

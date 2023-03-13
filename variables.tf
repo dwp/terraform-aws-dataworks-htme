@@ -1,4 +1,4 @@
-# = = = = = = = = 
+# = = = = = = = =
 #   Meta Data
 # = = = = = = = =
 
@@ -59,7 +59,7 @@ variable "ebs_type" {
 
 
 # = = = = = = = = = = = =
-#   Auto-Scaling Group 
+#   Auto-Scaling Group
 # = = = = = = = = = = = =
 variable "asg_name" {
   description = "The name of the Auto Scaling Group (ASG) used to deploy HTME."
@@ -104,6 +104,7 @@ variable "suspended_processes" {
 }
 
 variable "vpc_id" {
+  type        = string
   description = "The ID of the VPC to deploy HTME into."
 }
 
@@ -116,9 +117,9 @@ variable "subnet_ids" {
 
 
 
-# = = = = = = = = 
+# = = = = = = = =
 #   AutoSG Tags
-# = = = = = = = = 
+# = = = = = = = =
 
 variable "asg_autoshutdown" {
   description = "A tag specifying whether we should automatically shut HTME down. We must never do this with a live HTME application."
@@ -127,8 +128,9 @@ variable "asg_autoshutdown" {
 }
 
 variable "asg_ssm_enabled" {
-  type    = string
-  default = "False"
+  type        = string
+  description = "Enable SSM on ASG"
+  default     = "False"
 }
 
 variable "inspector" {
@@ -141,9 +143,9 @@ variable "inspector" {
 
 
 
-# = = = = = 
+# = = = = =
 #   IAM
-# = = = = = 
+# = = = = =
 
 variable "iam_role_max_session_timeout_seconds" {
   description = "Timeout in seconds for an IAM Role to be assumed."
@@ -155,7 +157,7 @@ variable "iam_role_max_session_timeout_seconds" {
 
 
 
-# = = = = = = = = =  
+# = = = = = = = = =
 #   Certificate
 # = = = = = = = = =
 
@@ -220,7 +222,7 @@ variable "common_logging_sh_content_hash" {
 
 
 
-# = = = = = = = = = 
+# = = = = = = = = =
 #   SQS Variables
 # = = = = = = = = =
 
@@ -274,9 +276,9 @@ variable "corporate_storage_export_sqs_key_arn" {
 
 
 
-# = = = = = = = = 
+# = = = = = = = =
 #   S3 Buckets
-# = = = = = = = = 
+# = = = = = = = =
 
 variable "s3_artefact_bucket_id" {
   description = "The ID of the artifact S3 bucket."
@@ -472,7 +474,7 @@ variable "htme_pushgateway_hostname" {
 
 # = = = = = = =
 #   Alerting
-# = = = = = = = 
+# = = = = = = =
 
 variable "htme_alert_on_failed_manifest_writes" {
   description = "Whether to enable alerting on failed manifest writes log messages."
@@ -538,9 +540,9 @@ variable "htme_alert_on_memory_usage" {
 
 
 
-# = = = = = = = 
+# = = = = = = =
 #   Userdata
-# = = = = = = = 
+# = = = = = = =
 
 variable "instance_name" {
   description = "The name of the HTME instances held within the ASG."
@@ -590,11 +592,13 @@ variable "dks_endpoint" {
 }
 
 variable "output_batch_size_max_bytes" {
+  type        = number
   description = "Max size in bytes of output chunks."
   default     = "1073741824"
 }
 
 variable "directory_output" {
+  type        = string
   description = "Output directoy when in local output mode."
   default     = "/tmp/hbase-export"
 }
@@ -637,8 +641,9 @@ variable "data_pipeline_metadata_arn" {
 }
 
 variable "message_delay_seconds" {
-  type    = number
-  default = 1
+  type        = number
+  description = "Message delay seconds"
+  default     = 1
 }
 
 variable "manifest_retry_max_attempts" {
@@ -684,8 +689,9 @@ variable "hbase_rpc_read_timeout_ms" {
 }
 
 variable "pdm_common_model_site_prefix" {
-  type    = string
-  default = "common-model-inputs/data/site/pipeline_success.flag"
+  type        = string
+  description = "PDM model site prefix"
+  default     = "common-model-inputs/data/site/pipeline_success.flag"
 }
 
 variable "scan_max_result_size" {
