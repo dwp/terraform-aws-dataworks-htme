@@ -126,11 +126,7 @@ data "terraform_remote_state" "mgmt_ca" {
 
 data "terraform_remote_state" "management_artefact" {
   backend   = "s3"
-<<<<<<< HEAD
   workspace = "management"
-=======
-  workspace = management
->>>>>>> 3afbc97 (chore: Adding sqs queues and tweaking data lookups)
 
   config = {
     bucket         = "{{terraform.state_file_bucket}}"
