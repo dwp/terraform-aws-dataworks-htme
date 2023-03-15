@@ -31,30 +31,6 @@ variable "test_account" {
 
 }
 
-variable "mgmt_account" {
-  type        = string
-  description = "Mgmt AWS Account number"
-
-}
-
-variable "state_file_bucket" {
-  type        = string
-  description = "State file bucket"
-
-}
-
-variable "state_file_kms_key" {
-  type        = string
-  description = "State file key"
-
-}
-
-variable "state_file_region" {
-  type        = string
-  description = "State file region"
-
-}
-
 variable "dataworks_domain_name" {
   type        = string
   description = "Domain name"
