@@ -149,7 +149,7 @@ data "terraform_remote_state" "mgmt_ca" {
 
 data "terraform_remote_state" "management_artefact" {
   backend   = "s3"
-  workspace = local.management_infra_account[local.environment]
+  workspace = local.management_account[local.environment]
 
   config = {
     bucket         = "{{terraform.state_file_bucket}}"
@@ -163,7 +163,7 @@ data "terraform_remote_state" "management_artefact" {
 
 data "terraform_remote_state" "management_dns" {
   backend   = "s3"
-  workspace = local.management_infra_account[local.environment]
+  workspace = local.management_account[local.environment]
 
   config = {
     bucket         = "{{terraform.state_file_bucket}}"

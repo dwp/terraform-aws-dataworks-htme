@@ -10,7 +10,6 @@ locals {
 
   account = {
     development = var.test_account
-    management  = var.mgmt_account
   }
   hcs_environment = {
     development    = "Dev"
