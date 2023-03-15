@@ -97,6 +97,9 @@ meta:
         inputs:
           - name: terraform-aws-dataworks-htme
           - name: terraform-config
+          - name: dw-al2-hardened-ami
+          - name: htme-release
+
 
     notify:
       on_success:
