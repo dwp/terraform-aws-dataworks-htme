@@ -159,7 +159,7 @@ module "terratest_htme" {
   dks_endpoint                = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]
   output_batch_size_max_bytes = "1073741824"
   directory_output            = "/tmp/hbase-export"
-  hbase_master_url            = data.terraform_remote_state.aws_internal_compute.outputs.aws_emr_cluster.fqdn
+  hbase_master_url            = data.terraform_remote_state.internal_compute.outputs.aws_emr_cluster.fqdn
   max_memory_allocation       = "NOT_SET"
   scan_width                  = "2"
 
