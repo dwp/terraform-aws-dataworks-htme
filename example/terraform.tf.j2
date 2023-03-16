@@ -13,7 +13,6 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-
 locals {}
 
 data "terraform_remote_state" "internal_compute" {
@@ -85,7 +84,7 @@ data "terraform_remote_state" "crypto" {
 
 data "terraform_remote_state" "internet_egress" {
   backend   = "s3"
-  workspace = local.crypto_workspace[local.management_account[local.environment]]
+  workspace = terraform.workspace
   config = {
     bucket         = "{{terraform.state_file_bucket}}"
     key            = "terraform/dataworks/aws-internet-egress.tfstate"
