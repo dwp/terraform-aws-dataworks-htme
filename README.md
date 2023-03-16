@@ -59,35 +59,11 @@ No modules.
 | [aws_iam_role_policy_attachment.htme_ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_launch_template.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_launch_template.htme_fallback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3afbc97 (chore: Adding sqs queues and tweaking data lookups)
-=======
->>>>>>> c721af5 (Dtwrks 849 (#8))
 | [aws_s3_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
 | [aws_s3_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
 | [aws_s3_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
 | [aws_s3_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
 | [aws_s3_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c721af5 (Dtwrks 849 (#8))
-=======
-| [aws_s3_bucket_object.htme_cloudwatch_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-| [aws_s3_bucket_object.htme_logrotate_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-| [aws_s3_bucket_object.htme_shell_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-| [aws_s3_bucket_object.htme_wrapper_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-| [aws_s3_bucket_object.wrapper_checker_script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-<<<<<<< HEAD
->>>>>>> 85f25ea (Dtwrks 849 (#6))
-=======
->>>>>>> 3afbc97 (chore: Adding sqs queues and tweaking data lookups)
-=======
->>>>>>> e01d0ff (Dtwrks 849 (#8))
->>>>>>> c721af5 (Dtwrks 849 (#8))
 | [aws_secretsmanager_secret.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.htme_collections_ris](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.htme](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |

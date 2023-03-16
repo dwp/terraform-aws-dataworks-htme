@@ -38,13 +38,6 @@ resources:
     check_every: 5m
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2d9ad68 (chore: fixing missing concource gets)
->>>>>>> 7b351ab (chore: fixing missing concource gets)
   - name: dw-al2-hardened-ami
     type: ami
     check_every: 5m
@@ -66,14 +59,6 @@ resources:
       access_token: ((dataworks-secrets.concourse_github_pat))
     check_every: 10m
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> e01d0ff (Dtwrks 849 (#8))
-=======
->>>>>>> 2d9ad68 (chore: fixing missing concource gets)
->>>>>>> 7b351ab (chore: fixing missing concource gets)
   - name: slack
     type: slack-notification
     source:
