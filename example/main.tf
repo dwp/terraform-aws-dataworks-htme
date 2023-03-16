@@ -12,6 +12,7 @@ provider "aws" {
     }
   }
 
+
   /* assume_role {
     role_arn = "arn:aws:iam::${var.test_account}:role/${var.assume_role}"
 
@@ -81,7 +82,7 @@ module "terratest_htme" {
   s3_config_bucket_id            = data.terraform_remote_state.common.outputs.config_bucket.id
   s3_config_bucket_arn           = data.terraform_remote_state.common.outputs.config_bucket.arn
   config_bucket_cmk_arn          = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
-  s3_script_logging_sh_id        = aws_s3_bucket_object.logging_script.id
+  s3_script_logging_sh_id        = aws_s3_object.logging_script.id
   logging_sh_content_hash        = md5(data.local_file.logging_script.content)
   s3_script_common_logging_sh_id = data.terraform_remote_state.common.outputs.application_logging_common_file.s3_id
   common_logging_sh_content_hash = data.terraform_remote_state.common.outputs.application_logging_common_file.hash

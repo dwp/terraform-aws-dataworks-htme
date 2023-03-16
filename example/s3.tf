@@ -1,11 +1,11 @@
-resource "aws_s3_bucket_object" "logging_script" {
+resource "aws_s3_object" "logging_script" {
   bucket     = data.terraform_remote_state.common.outputs.config_bucket.id
   key        = "component/shared/logging.sh"
   content    = data.local_file.logging_script.content
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
 }
 
-resource "aws_s3_bucket_object" "htme_default_topics_ris_csv" {
+resource "aws_s3_object" "htme_default_topics_ris_csv" {
   bucket     = data.terraform_remote_state.common.outputs.config_bucket.id
   key        = "component/htme/htme_default_topics_ris.csv"
   content    = data.local_file.htme_default_topics_ris_csv.content
