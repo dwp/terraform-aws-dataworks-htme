@@ -30,8 +30,7 @@ resource "aws_subnet" "htme" {
     9,
     count.index + 30,
   )
-  availability_zone = ["eu-west-1a", "eu-west-1b"]
-  vpc_id            = module.terratest_htme_vpc.vpc.id
+  vpc_id = module.terratest_htme_vpc.vpc.id
 
   tags = merge(
     local.common_tags,
@@ -51,8 +50,7 @@ resource "aws_subnet" "terratest_vpc_endpoints" {
     9,
     count.index + 509,
   )
-  availability_zone = ["eu-west-1a", "eu-west-1b"]
-  vpc_id            = module.terratest_htme_vpc.vpc.id
+  vpc_id = module.terratest_htme_vpc.vpc.id
 
   tags = merge(
     local.common_tags,
