@@ -63,5 +63,4 @@ locals {
   htme_s3_manifest_prefix = "${data.terraform_remote_state.ingestion.outputs.manifest_s3_prefixes.base}/export"
 
 
-
 }

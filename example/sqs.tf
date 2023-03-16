@@ -60,7 +60,7 @@ resource "aws_sqs_queue" "export_state_fifo" {
   name                              = "export_state.fifo"
   kms_master_key_id                 = aws_kms_alias.export_state_fifo.name
   kms_data_key_reuse_period_seconds = 86400
-  delay_seconds                     = local.export_state_sqs_queue_delay_seconds[local.environment]
+  delay_seconds                     = 1
   fifo_queue                        = true
   content_based_deduplication       = true
   deduplication_scope               = "messageGroup"
