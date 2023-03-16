@@ -88,8 +88,8 @@ module "terratest_htme" {
   common_logging_sh_content_hash = data.terraform_remote_state.common.outputs.application_logging_common_file.hash
 
   # SQS Variables
-  scheduler_sqs_queue_url                = data.aws_sqs_queue.scheduler_sqs.url
-  corporate_storage_export_sqs_queue_url = data.aws_sqs_queue.corporate_storage_export_sqs.url
+  scheduler_sqs_queue_url                = aws_sqs_queue.export_state_fifo.url
+  corporate_storage_export_sqs_queue_url = aws_sqs_queue.corporate_storage_export.url
   sqs_messages_group_id_retries          = "retried_collection_exports"
   data_egress_sqs_url                    = data.terraform_remote_state.common.outputs.data_egress_sqs.id
   export_state_fifo_sqs_arn              = data.terraform_remote_state.common.outputs.export_state_fifo_sqs.arn

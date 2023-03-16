@@ -1,11 +1,3 @@
-data "aws_sqs_queue" "scheduler_sqs" {
-  name = aws_sqs_queue.export_state_fifo.name
-}
-
-data "aws_sqs_queue" "corporate_storage_export_sqs" {
-  name = aws_sqs_queue.corporate_storage_export.name
-}
-
 data "local_file" "logging_script" {
   filename = "files/shared/logging.sh"
 }
