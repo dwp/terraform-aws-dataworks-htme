@@ -5,20 +5,11 @@ resource_types:
       repository: teliaoss/github-pr-resource
       tag: latest
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2d9ad68 (chore: fixing missing concource gets)
   - name: ami
     type: docker-image
     source:
       repository: dwpdigital/ami-resource
 
-<<<<<<< HEAD
-=======
->>>>>>> e01d0ff (Dtwrks 849 (#8))
-=======
->>>>>>> 2d9ad68 (chore: fixing missing concource gets)
   - name: slack-notification
     type: docker-image
     source:

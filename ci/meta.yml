@@ -97,20 +97,9 @@ meta:
         inputs:
           - name: terraform-aws-dataworks-htme
           - name: terraform-config
-<<<<<<< HEAD
-<<<<<<< HEAD
-          - name: dw-al2-hardened-ami
-          - name: htme-release
-=======
           - name: dw-al2-hardened-ami
           - name: htme-release
 
->>>>>>> 2d9ad68 (chore: fixing missing concource gets)
-
-
-=======
-
->>>>>>> e01d0ff (Dtwrks 849 (#8))
     notify:
       on_success:
         put: slack
