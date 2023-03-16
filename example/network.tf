@@ -24,13 +24,13 @@ resource "aws_vpc_endpoint" "internet_proxy" {
 }
 
 resource "aws_subnet" "htme" {
-  count = length(data.aws_availability_zones.available.names)
+  count = 2
   cidr_block = cidrsubnet(
     module.terratest_htme_vpc.vpc.cidr_block,
     9,
     count.index + 30,
   )
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = ["eu-west-1a", "eu-west-1b"]
   vpc_id            = module.terratest_htme_vpc.vpc.id
 
   tags = merge(
@@ -43,7 +43,7 @@ resource "aws_subnet" "htme" {
 }
 
 resource "aws_subnet" "terratest_vpc_endpoints" {
-  count = length(data.aws_availability_zones.available.names)
+  count = 2
   # Place VPC endpoint subnets at the end of the VPC range to keep them out
   # of the way of everything else
   cidr_block = cidrsubnet(
@@ -51,7 +51,7 @@ resource "aws_subnet" "terratest_vpc_endpoints" {
     9,
     count.index + 509,
   )
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = ["eu-west-1a", "eu-west-1b"]
   vpc_id            = module.terratest_htme_vpc.vpc.id
 
   tags = merge(
