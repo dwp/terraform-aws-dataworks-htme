@@ -7,8 +7,8 @@ data "aws_iam_policy_document" "sqs_queue_cmk_policy" {
       type = "AWS"
 
       identifiers = [
-        "arn:aws:iam::${local.accounts[local.environment]}:root",
-        "arn:aws:iam::${local.accounts[local.environment]}:role/CrownNifi",
+        "arn:aws:iam::${local.account[local.environment]}:root",
+        "arn:aws:iam::${local.account[local.environment]}:role/CrownNifi",
       ]
     }
 
