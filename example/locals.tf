@@ -10,7 +10,6 @@ locals {
 
   account = {
     development = var.test_account
-    management  = var.mgmt_account
   }
   hcs_environment = {
     development    = "Dev"
@@ -62,7 +61,6 @@ locals {
   manifest_s3_bucket_export_manifest_lifecycle_rule_name             = "export-manifests"
 
   htme_s3_manifest_prefix = "${data.terraform_remote_state.ingestion.outputs.manifest_s3_prefixes.base}/export"
-
 
 
 }
