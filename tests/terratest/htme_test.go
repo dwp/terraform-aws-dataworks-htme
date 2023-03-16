@@ -48,8 +48,8 @@ func TestHtme(t *testing.T) {
 	plan := terraform.InitAndPlanAndShowWithStruct(t, terraformOptionsHtme)
 
 
-	// At the end of the test, run `terraform destroy` to clean up any resources that were created
-	defer terraform.Destroy(t, terraformOptionsHtme)
+	// // At the end of the test, run `terraform destroy` to clean up any resources that were created
+	// defer terraform.Destroy(t, terraformOptionsHtme)
 
 	// // This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	// terraform.InitAndApply(t, terraformOptionsHtme)
