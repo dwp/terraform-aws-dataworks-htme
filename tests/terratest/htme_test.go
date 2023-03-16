@@ -55,7 +55,7 @@ func TestHtme(t *testing.T) {
 	// terraform.InitAndApply(t, terraformOptionsHtme)
 
 	// website::tag::3::Use the go struct to introspect the plan values.
-	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.compaction_bucket")
+	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.compaction")
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_s3_bucket.manifest_bucket")
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_fulls")
 	terraform.RequirePlannedValuesMapKeyExists(t, plan, "aws_sns_topic.export_status_sns_incrementals")
