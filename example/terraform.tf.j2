@@ -127,7 +127,7 @@ data "terraform_remote_state" "mgmt_ca" {
 
 data "terraform_remote_state" "management_artefact" {
   backend   = "s3"
-  workspace = management
+  workspace = local.management_account[production]
 
   config = {
     bucket         = "{{terraform.state_file_bucket}}"
