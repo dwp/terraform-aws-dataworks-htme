@@ -1,11 +1,3 @@
-data "aws_sqs_queue" "scheduler_sqs" {
-  name = data.terraform_remote_state.common.outputs.export_state_fifo_sqs.name
-}
-
-data "aws_sqs_queue" "corporate_storage_export_sqs" {
-  name = data.terraform_remote_state.common.outputs.corporate_storage_export_sqs.name
-}
-
 data "local_file" "logging_script" {
   filename = "files/shared/logging.sh"
 }
