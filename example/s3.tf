@@ -95,6 +95,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "compaction" {
     }
 
     status = "Enabled"
+
   }
 }
 
@@ -261,6 +262,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "manifest_bucket" {
     status = "Enabled"
   }
 }
+
 
 resource "aws_s3_bucket_versioning" "manifest_bucket" {
   bucket = aws_s3_bucket.manifest_bucket.id
