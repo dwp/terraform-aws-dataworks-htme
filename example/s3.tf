@@ -287,54 +287,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "manifest_bucket" 
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "compaction" {
-  bucket = aws_s3_bucket.compaction.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
-}
-
-data "aws_iam_policy_document" "compaction_bucket" {
-  statement {
-    sid     = "BlockHTTP"
-    effect  = "Deny"
-    actions = ["*"]
-
-    resources = [
-      aws_s3_bucket.compaction.arn,
-      "${aws_s3_bucket.compaction.arn}/*",
-    ]
-
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
-
-    condition {
-      test     = "Bool"
-      values   = ["false"]
-      variable = "aws:SecureTransport"
-    }
-  }
-
-  statement {
-    sid     = "DenyGetObjectOnCryptoCollectionsToAllExceptDataEgressRole"
-    effect  = "Deny"
-    actions = ["s3:GetObject"]
-
-    resources = [
-      "${aws_s3_bucket.compaction.arn}/businessdata/mongo/ucdata/*/*/db.crypto",
-    ]
-
-    not_principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${local.account[local.environment]}:role/DataEgressServer"]
-    }
-  }
-}
-
 resource "aws_s3_bucket_public_access_block" "manifest_bucket" {
   bucket = aws_s3_bucket.manifest_bucket.id
 
