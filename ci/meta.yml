@@ -17,6 +17,7 @@ meta:
             - |
               python ./example/bootstrap_terraform.py
               cp ./example/terraform.tfvars ../terraform-config
+              cp ./example/terraform.tf ../terraform-config
           dir: terraform-aws-dataworks-htme
         inputs:
           - name: terraform-aws-dataworks-htme
@@ -89,6 +90,7 @@ meta:
             export TF_VAR_al2_hardened_ami_id=$(cat ../dw-al2-hardened-ami/id)
             export TF_VAR_htme_version=$(cat ../htme-release/version)
             cp ../terraform-config/terraform.tfvars ./example
+            cp ../terraform-config/terraform.tf ./example
             go mod init htme
             go mod tidy
             cd tests/terratest

@@ -17,11 +17,11 @@ jobs:
       merge: true
   - .: (( inject meta.plan.terraform-bootstrap ))
     input_mapping:
-      terraform-aws-waf: terraform-aws-dataworks-htme-test
+      terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-test
   - task: terraform-terratest
     .: (( inject meta.plan.terraform-terratest ))
     input_mapping:
-      terraform-aws-waf: terraform-aws-dataworks-htme-test
+      terraform-aws-dataworks-htme: terraform-aws-dataworks-htme-test
   - put: terraform-aws-dataworks-htme
     params:
       repository: terraform-aws-dataworks-htme-test
