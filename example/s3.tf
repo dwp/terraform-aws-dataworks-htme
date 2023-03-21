@@ -36,7 +36,6 @@ resource "aws_kms_alias" "compaction_bucket_alias" {
 
 resource "aws_s3_bucket" "compaction" {
   bucket = "terratest-compaction-bucket"
-  acl    = "private"
   tags = merge(
     local.common_tags,
     {
@@ -45,6 +44,13 @@ resource "aws_s3_bucket" "compaction" {
   )
 
 }
+
+
+resource "aws_s3_bucket_acl" "compaction" {
+  bucket = aws_s3_bucket.compaction.id
+  acl    = "private"
+}
+
 
 
 resource "aws_s3_bucket_lifecycle_configuration" "compaction" {
@@ -95,7 +101,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "compaction" {
     }
 
     status = "Enabled"
-
   }
 }
 
@@ -200,7 +205,6 @@ resource "aws_kms_alias" "manifest_bucket_alias" {
 
 resource "aws_s3_bucket" "manifest_bucket" {
   bucket = "terratest-manifest-bucket"
-  acl    = "private"
 
   tags = merge(
     local.common_tags,
@@ -209,6 +213,11 @@ resource "aws_s3_bucket" "manifest_bucket" {
     },
   )
 
+}
+
+resource "aws_s3_bucket_acl" "manifest_bucket" {
+  bucket = aws_s3_bucket.manifest_bucket.id
+  acl    = "private"
 }
 
 
@@ -262,7 +271,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "manifest_bucket" {
     status = "Enabled"
   }
 }
-
 
 resource "aws_s3_bucket_versioning" "manifest_bucket" {
   bucket = aws_s3_bucket.manifest_bucket.id
