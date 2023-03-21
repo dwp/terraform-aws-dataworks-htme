@@ -1,3 +1,6 @@
+## Testing
+Terratests currently only do a plan for this module.  No deploly/teardowns are currently run
+
 # Usage
 The go libraries are compiled at the root folder of metric-filter-alarm module with below commands:
 

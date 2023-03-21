@@ -95,6 +95,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "compaction" {
     }
 
     status = "Enabled"
+
   }
 }
 
@@ -262,6 +263,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "manifest_bucket" {
   }
 }
 
+
 resource "aws_s3_bucket_versioning" "manifest_bucket" {
   bucket = aws_s3_bucket.manifest_bucket.id
   versioning_configuration {
@@ -283,54 +285,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "manifest_bucket" 
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.manifest_bucket_cmk.arn
       sse_algorithm     = "aws:kms"
-    }
-  }
-}
-
-resource "aws_s3_bucket_public_access_block" "compaction" {
-  bucket = aws_s3_bucket.compaction.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
-}
-
-data "aws_iam_policy_document" "compaction_bucket" {
-  statement {
-    sid     = "BlockHTTP"
-    effect  = "Deny"
-    actions = ["*"]
-
-    resources = [
-      aws_s3_bucket.compaction.arn,
-      "${aws_s3_bucket.compaction.arn}/*",
-    ]
-
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
-
-    condition {
-      test     = "Bool"
-      values   = ["false"]
-      variable = "aws:SecureTransport"
-    }
-  }
-
-  statement {
-    sid     = "DenyGetObjectOnCryptoCollectionsToAllExceptDataEgressRole"
-    effect  = "Deny"
-    actions = ["s3:GetObject"]
-
-    resources = [
-      "${aws_s3_bucket.compaction.arn}/businessdata/mongo/ucdata/*/*/db.crypto",
-    ]
-
-    not_principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${local.account[local.environment]}:role/DataEgressServer"]
     }
   }
 }
