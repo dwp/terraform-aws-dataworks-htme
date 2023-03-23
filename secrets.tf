@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "htme_collections_ris" {
-  name        = "htme/collections/ris"
+  name        = "/htme/collections/ris"
   description = "Collections list for ris processing in HTME"
   tags        = var.common_tags
 }
