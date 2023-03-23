@@ -45,13 +45,10 @@ resource "aws_s3_bucket" "compaction" {
 
 }
 
-
 resource "aws_s3_bucket_acl" "compaction" {
   bucket = aws_s3_bucket.compaction.id
   acl    = "private"
 }
-
-
 
 resource "aws_s3_bucket_lifecycle_configuration" "compaction" {
   bucket = aws_s3_bucket.compaction.id
