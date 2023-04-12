@@ -23,7 +23,7 @@ echo "${s3_script_hash_htme_cloudwatch_sh}" > /dev/null
 echo "${s3_script_hash_common_logging_sh}" > /dev/null
 echo "${s3_script_hash_logging_sh}" > /dev/null
 echo "${s3_script_hash_wrapper_checker_sh}" > /dev/null
-echo "${s3_script_config_hcs_sh}" > /dev/null
+echo "${s3_script_hash_config_hcs_sh}" > /dev/null
 
 export http_proxy="http://${internet_proxy}:3128"
 export HTTP_PROXY="$http_proxy"

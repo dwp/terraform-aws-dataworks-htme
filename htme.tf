@@ -233,6 +233,7 @@ data "template_file" "htme" {
     s3_script_common_logging_sh       = var.s3_script_common_logging_sh_id
     s3_script_logging_sh              = var.s3_script_logging_sh_id
     s3_script_wrapper_checker_sh      = aws_s3_object.wrapper_checker_script.id
+    s3_script_config_hcs_sh           = aws_s3_object.config_hcs_script.id
     s3_script_hash_htme_sh            = md5(data.local_file.htme_shell_script.content)
     s3_script_hash_htme_wrapper_sh    = md5(data.local_file.htme_wrapper_script.content)
     s3_script_hash_htme_logrotate     = md5(data.local_file.htme_logrotate_script.content)
@@ -240,7 +241,7 @@ data "template_file" "htme" {
     s3_script_hash_common_logging_sh  = var.common_logging_sh_content_hash
     s3_script_hash_logging_sh         = var.logging_sh_content_hash
     s3_script_hash_wrapper_checker_sh = md5(data.local_file.wrapper_checker_script.content)
-    s3_script_config_hcs_sh           = md5(data.local_file.config_hcs_script.content)
+    s3_script_hash_config_hcs_sh      = md5(data.local_file.config_hcs_script.content)
 
     cwa_namespace                                    = var.cw_agent_namespace
     cwa_metrics_collection_interval                  = var.cw_agent_metrics_collection_interval
@@ -324,6 +325,7 @@ data "template_file" "htme_fallback" {
     s3_script_common_logging_sh       = var.s3_script_common_logging_sh_id
     s3_script_logging_sh              = var.s3_script_logging_sh_id
     s3_script_wrapper_checker_sh      = aws_s3_object.wrapper_checker_script.id
+    s3_script_config_hcs_sh           = aws_s3_object.config_hcs_script.id
     s3_script_hash_htme_sh            = md5(data.local_file.htme_shell_script.content)
     s3_script_hash_htme_wrapper_sh    = md5(data.local_file.htme_wrapper_script.content)
     s3_script_hash_htme_logrotate     = md5(data.local_file.htme_logrotate_script.content)
@@ -331,7 +333,7 @@ data "template_file" "htme_fallback" {
     s3_script_hash_common_logging_sh  = var.common_logging_sh_content_hash
     s3_script_hash_logging_sh         = var.logging_sh_content_hash
     s3_script_hash_wrapper_checker_sh = md5(data.local_file.wrapper_checker_script.content)
-    s3_script_config_hcs_sh           = md5(data.local_file.config_hcs_script.content)
+    s3_script_hash_config_hcs_sh      = md5(data.local_file.config_hcs_script.content)
 
     cwa_namespace                                    = var.cw_agent_namespace
     cwa_metrics_collection_interval                  = var.cw_agent_metrics_collection_interval
