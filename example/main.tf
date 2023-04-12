@@ -43,10 +43,11 @@ module "terratest_htme" {
   source = "../"
 
   # Metadata
-  account_number = local.account[local.environment]
-  environment    = local.environment
-  region         = "eu-west-1"
-  common_tags    = local.common_tags
+  account_number  = local.account[local.environment]
+  environment     = local.environment
+  hcs_environment = local.hcs_environment[local.environment]
+  region          = "eu-west-1"
+  common_tags     = local.common_tags
 
   # Launch Template
   image_id               = var.al2_hardened_ami_id

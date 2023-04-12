@@ -18,6 +18,17 @@ data "local_file" "wrapper_checker_script" {
   filename = "files/htme/wrapper_checker.sh"
 }
 
+data "local_file" "config_hcs_script" {
+  filename = "files/htme/config_hcs.sh"
+}
+
+resource "aws_s3_object" "config_hcs_script" {
+  bucket     = var.s3_config_bucket_id
+  key        = "component/htme/config_hcs.sh"
+  content    = data.local_file.config_hcs_script.content
+  kms_key_id = var.config_bucket_cmk_arn
+}
+
 resource "aws_s3_object" "htme_wrapper_script" {
   bucket     = var.s3_config_bucket_id
   key        = "component/htme/htme_wrapper.sh"

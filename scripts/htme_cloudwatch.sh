@@ -136,6 +136,12 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json <<CWAGEN
             "timezone": "UTC"
           },
           {
+            "file_path": "/var/log/htme/config_hcs.log",
+            "log_group_name": "${cwa_log_group_name_htme}",
+            "log_stream_name": "{instance_id}-config-hcs.log",
+            "timezone": "UTC"
+          },
+          {
             "file_path": "/var/log/messages",
             "log_group_name": "${cwa_log_group_name_system}",
             "log_stream_name": "{instance_id}-messages",
