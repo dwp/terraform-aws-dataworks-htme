@@ -7,6 +7,17 @@ variable "environment" {
   type        = string
 }
 
+variable "hcs_environment" {
+  description = "HCS standard environment name"
+  type        = string
+}
+
+variable "proxy_port" {
+  description = "internet proxy port"
+  type        = string
+  default     = 3128
+}
+
 variable "account_number" {
   description = "The AWS Account Number to deploy to."
   type        = string

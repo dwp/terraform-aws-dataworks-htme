@@ -23,6 +23,7 @@ echo "${s3_script_hash_htme_cloudwatch_sh}" > /dev/null
 echo "${s3_script_hash_common_logging_sh}" > /dev/null
 echo "${s3_script_hash_logging_sh}" > /dev/null
 echo "${s3_script_hash_wrapper_checker_sh}" > /dev/null
+echo "${s3_script_config_hcs_sh}" > /dev/null
 
 export http_proxy="http://${internet_proxy}:3128"
 export HTTP_PROXY="$http_proxy"
@@ -63,6 +64,7 @@ S3_CLOUDWATCH_SHELL="s3://${s3_scripts_bucket}/${s3_script_htme_cloudwatch_sh}"
 S3_COMMON_LOGGING_SHELL="s3://${s3_scripts_bucket}/${s3_script_common_logging_sh}"
 S3_LOGGING_SHELL="s3://${s3_scripts_bucket}/${s3_script_logging_sh}"
 S3_WRAPPER_CHECKER="s3://${s3_scripts_bucket}/${s3_script_wrapper_checker_sh}"
+S3_CONFIG_HCS="s3://${s3_scripts_bucket}/${s3_script_config_hcs_sh}"
 
 echo "Creating shared directory"
 mkdir -p /opt/shared/
@@ -75,6 +77,7 @@ $(which aws) s3 cp "$S3_CLOUDWATCH_SHELL"       /opt/htme/htme_cloudwatch.sh
 $(which aws) s3 cp "$S3_COMMON_LOGGING_SHELL"   /opt/shared/common_logging.sh
 $(which aws) s3 cp "$S3_LOGGING_SHELL"          /opt/htme/logging.sh
 $(which aws) s3 cp "$S3_WRAPPER_CHECKER"        /opt/htme/wrapper_checker.sh
+$(which aws) s3 cp "$S3_CONFIG_HCS"             /opt/htme/config_hcs.sh
 
 echo "Allow shutting down"
 echo "htme     ALL = NOPASSWD: /sbin/shutdown -h now" >> /etc/sudoers
@@ -161,9 +164,13 @@ chmod u+x /opt/htme/logging.sh
 chmod u+x /opt/htme/htme.sh
 chmod u+x /opt/htme/htme_wrapper.sh
 chmod u+x /opt/htme/wrapper_checker.sh
+chmod u+x /opt/htme/config_hcs.sh
 chown htme:htme -R  /opt/shared
 chown htme:htme -R  /opt/htme
 chown htme:htme -R  /var/log/htme
+
+echo "Setup hcs services"
+/opt/htme/config_hcs.sh ${hcs_environment} ${internet_proxy} ${proxy_port}
 
 echo "Shutdown if key store hasn't been created successfully"
 if [ ! -e /opt/htme/keystore.jks ] || [ ! -e /opt/htme/truststore.jks ]; then
