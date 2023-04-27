@@ -4,11 +4,7 @@
     # Import the logging functions
     source /opt/htme/logging.sh
 
-    function log_wrapper_message() {
-        log_htme_message "$${1}" "config_hcs.sh" "$${PID}" "$${@:2}" "Running as: ,$USER"
-    }
-
-    log_wrapper_message "Populate HCS required tags..."
+    log_message "Populate HCS required tags..."
 
     # Import tenable Linking Key
     source /etc/environment
@@ -19,7 +15,7 @@
     echo "$TECHNICALSERVICE"
     echo "$ENVIRONMENT"
 
-    log_wrapper_message "Configuring tenable agent"
+    log_message "Configuring tenable agent"
 
     sudo /opt/nessus_agent/sbin/nessuscli agent link --key="$TENABLE_LINKING_KEY" --cloud --groups="$TECHNICALSERVICE"_"$ENVIRONMENT",TVAT --proxy-host="$2" --proxy-port="$3"
 
