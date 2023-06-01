@@ -33,7 +33,8 @@ TRIGGER_ADG="${27}"
 PRODUCT_STATUS_TABLE_NAME="${28}"
 SQS_MESSAGE_GROUP_ID="${29}"
 SEND_TO_RIS="${30}"
-DATA_EGRESS_SQS_QUEUE_URL="${31}"
+SEND_TO_CRE="${31}"
+DATA_EGRESS_SQS_QUEUE_URL="${32}"
 
 AWS_PATH=$(which aws)
 
@@ -74,6 +75,7 @@ function log_shell_message() {
     "trigger_adg,${TRIGGER_ADG}" \
     "sqs_message_group_id,${SQS_MESSAGE_GROUP_ID}" \
     "send_to_ris,${SEND_TO_RIS}" \
+    "send_to_cre,${SEND_TO_CRE}" \
     "data_egress_sqs_queue_url,${DATA_EGRESS_SQS_QUEUE_URL}"
 }
 
@@ -126,7 +128,8 @@ function resend_sqs_message_for_failed_topic() {
         \"ss-reprocess-files\": \"true\", \
         \"trigger-adg\": \"${TRIGGER_ADG}\", \
         \"snapshot-type\": \"${SNAPSHOT_TYPE}\", \
-        \"send-to-ris\": \"${SEND_TO_RIS}\"}")
+        \"send-to-ris\": \"${SEND_TO_RIS}\", \
+         \"send-to-cre\": \"${SEND_TO_CRE}\"}")
 
     log_shell_message "Sending message to SQS to restart failed topic" "sqs_outgoing_message,${SQS_OUTGOING_MESSAGE}"
     ${AWS_PATH} sqs send-message --queue-url "${SQS_INCOMING_URL}" --message-body "${SQS_OUTGOING_MESSAGE}" --message-group-id "${SQS_MESSAGE_GROUP_ID}"
@@ -187,6 +190,12 @@ run_htme_jar() {
         SEND_TO_RIS_BOOLEAN=true
     fi
 
+    SEND_TO_CRE_BOOLEAN=false
+    if [[ "${SEND_TO_CRE}" == *"true"*  ]]; then
+        log_shell_message "Setting send.to.cre to true" "send_to_cre,${SEND_TO_CRE}" "send_to_CRE_boolean,${SEND_TO_CRE_BOOLEAN}"
+        SEND_TO_CRE_BOOLEAN=true
+    fi
+
     # This can not have double quotes in the command, hence the disable for shellcheck
     #shellcheck disable=SC2086
     java ${MAX_MEMORY_ALLOCATION} -Denvironment="${ENVIRONMENT_NAME}" \
@@ -219,6 +228,7 @@ run_htme_jar() {
         --topic.arn.completion.full="${SNS_TOPIC_ARN_COMPLETION_FULL}" \
         --trigger.adg=${TRIGGER_ADG_BOOLEAN} \
         --send.to.ris=${SEND_TO_RIS_BOOLEAN} \
+        --send.to.cre=${SEND_TO_CRE_BOOLEAN} \
         --data.egress.sqs.queue.url="${DATA_EGRESS_SQS_QUEUE_URL}" \
         --spring.config.location="/opt/htme/config/application.properties";
 

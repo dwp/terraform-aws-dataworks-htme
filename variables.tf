@@ -195,6 +195,11 @@ variable "htme_default_topics_ris_base64" {
   type        = string
 }
 
+variable "htme_default_topics_cre_base64" {
+  description = "The base64 encoded string containing defualt topics for CRE."
+  type        = string
+}
+
 variable "s3_config_bucket_id" {
   description = "The ID of the config S3 bucket."
   type        = string
@@ -257,6 +262,7 @@ variable "data_egress_sqs_url" {
   description = "The queue to which notifications of exported RIS files are sent."
   type        = string
 }
+
 
 variable "export_state_fifo_sqs_arn" {
   description = "The ARN of the Export State FIFO SQS Queue."

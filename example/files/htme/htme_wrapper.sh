@@ -13,7 +13,8 @@ function log_wrapper_message() {
     "ss_shutdown_on_completion,${SHUTDOWN_SS}" "s3_full_folder,${S3_FULL_FOLDER}" "run_export,${RUN_EXPORT}" \
     "start_date_time,${START_DATE_TIME}" "end_date_time,${END_DATE_TIME}" "trigger_snapshot_sender,${TRIGGER_SNAPSHOT_SENDER}" \
     "ss_reprocess_files,${REPROCESS_FILES}" "snapshot_type,${SNAPSHOT_TYPE}" "trigger_adg,${TRIGGER_ADG}" \
-    "sqs_message_group_id,${SQS_MESSAGE_GROUP_ID}" "send_to_ris,${SEND_TO_RIS}"
+    "sqs_message_group_id,${SQS_MESSAGE_GROUP_ID}" "send_to_cre,${SEND_TO_CRE}" \
+    "sqs_message_group_id,${SQS_MESSAGE_GROUP_ID}" "send_to_ris,${SEND_TO_CRE}"
 }
 
 function detach_from_asg() {
@@ -101,6 +102,7 @@ function reset_message_specific_vars() {
     export REPROCESS_FILES=""
     export TRIGGER_ADG=""
     export SEND_TO_RIS=""
+    export SEND_TO_CRE=""
 }
 
 function set_boot_launch_template_variables() {
@@ -249,6 +251,7 @@ while true; do
             REPROCESS_FILES=$(echo "${BODY}" | jq -r '."ss-reprocess-files" // empty')
             TRIGGER_ADG=$(echo "${BODY}" | jq -r '."trigger-adg" // empty')
             SEND_TO_RIS=$(echo "${BODY}" | jq -r '."send-to-ris" // empty')
+            SEND_TO_RIS=$(echo "${BODY}" | jq -r '."send-to-cre" // empty')
 
             if [[ "${REPROCESS_FILES}" != *"true"* ]]; then
                 REPROCESS_FILES="false"
@@ -269,7 +272,8 @@ while true; do
                     "${BLOCKED_TOPICS}" "${RECEIPT_HANDLE}" "${SQS_INCOMING_URL}" "${SNAPSHOT_TYPE}" \
                     "${SHUTDOWN_HTME}" "${SNS_TOPIC_ARN_MONITORING}" "${SNS_TOPIC_ARN_COMPLETION_INCREMENTAL}" \
                     "${SNS_TOPIC_ARN_COMPLETION_FULL}" "${TRIGGER_ADG}" "${PRODUCT_STATUS_TABLE_NAME}" \
-                    "${SQS_MESSAGE_GROUP_ID}" "${SEND_TO_RIS}" "${DATA_EGRESS_SQS_URL}" &
+                    "${SQS_MESSAGE_GROUP_ID}" "${SEND_TO_RIS}" "${DATA_EGRESS_SQS_URL}" \
+                    "${SQS_MESSAGE_GROUP_ID}" "${SEND_TO_CRE}" "${DATA_EGRESS_SQS_URL}" &
                 export PID=$!
                 RUNNING=1
 

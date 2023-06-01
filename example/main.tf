@@ -80,6 +80,7 @@ module "terratest_htme" {
 
   # Scripts
   htme_default_topics_ris_base64 = data.local_file.htme_default_topics_ris_csv.content_base64
+  htme_default_topics_cre_base64 = data.local_file.htme_default_topics_cre_csv.content_base64
   s3_config_bucket_id            = data.terraform_remote_state.common.outputs.config_bucket.id
   s3_config_bucket_arn           = data.terraform_remote_state.common.outputs.config_bucket.arn
   config_bucket_cmk_arn          = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn

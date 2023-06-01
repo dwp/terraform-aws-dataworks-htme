@@ -12,6 +12,13 @@ resource "aws_s3_object" "htme_default_topics_ris_csv" {
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
 }
 
+resource "aws_s3_object" "htme_default_topics_cre_csv" {
+  bucket     = data.terraform_remote_state.common.outputs.config_bucket.id
+  key        = "component/htme/htme_default_topics_cre.csv"
+  content    = data.local_file.htme_default_topics_cre_csv.content
+  kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
+}
+
 resource "aws_kms_key" "compaction_bucket_cmk" {
   description             = "Terratest Compaction Bucket Master Key"
   deletion_window_in_days = 7
