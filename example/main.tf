@@ -190,7 +190,6 @@ module "terratest_htme" {
   tanium_server_1  = local.tanium1
   tanium_server_2  = local.tanium2
   tanium_env       = local.tanium_env[local.environment]
-  tanium_port      = var.tanium_port_1
   tanium_log_level = local.tanium_log_level[local.environment]
   tenant           = local.tenant
   tenantid         = local.tenantid
