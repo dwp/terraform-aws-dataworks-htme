@@ -12,5 +12,5 @@ data "aws_secretsmanager_secret_version" "terraform_secrets" {
 }
 
 data "aws_ec2_managed_prefix_list" "list" {
-  name = "dwp-*-aws-cidrs-nonprod"
+  name = "dwp-*-aws-cidrs-*"
 }
