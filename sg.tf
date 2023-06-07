@@ -15,39 +15,3 @@ resource "aws_security_group" "htme" {
     },
   )
 }
-
-resource "aws_security_group_rule" "dks_host_outbound_tanium_1" {
-  type              = "egress"
-  from_port         = var.tanium_port_1
-  to_port           = var.tanium_port_1
-  protocol          = "tcp"
-  prefix_list_ids   = var.tanium_prefix
-  security_group_id = aws_security_group.htme.id
-}
-
-resource "aws_security_group_rule" "dks_host_outbound_tanium_2" {
-  type              = "egress"
-  from_port         = var.tanium_port_2
-  to_port           = var.tanium_port_2
-  protocol          = "tcp"
-  prefix_list_ids   = var.tanium_prefix
-  security_group_id = aws_security_group.htme.id
-}
-
-resource "aws_security_group_rule" "dks_host_inbound_tanium_1" {
-  type              = "ingress"
-  from_port         = var.tanium_port_1
-  to_port           = var.tanium_port_1
-  protocol          = "tcp"
-  prefix_list_ids   = var.tanium_prefix
-  security_group_id = aws_security_group.htme.id
-}
-
-resource "aws_security_group_rule" "dks_host_inbound_tanium_2" {
-  type              = "ingress"
-  from_port         = var.tanium_port_2
-  to_port           = var.tanium_port_2
-  protocol          = "tcp"
-  prefix_list_ids   = var.tanium_prefix
-  security_group_id = aws_security_group.htme.id
-}
