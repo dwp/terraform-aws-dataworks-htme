@@ -195,6 +195,5 @@ module "terratest_htme" {
   tenantid         = local.tenantid
   token            = local.token
   policyid         = local.policyid[local.environment]
-  tanium_prefix    = local.tanium_prefix[local.environment]
 
 }
