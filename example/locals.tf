@@ -95,8 +95,8 @@ locals {
 
   ## Tanium config
   ## Tanium Servers
-  tanium_server_1 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_1
-  tanium_server_2 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_2
+  tanium_server_1 = "10.0.0.1" # Dummy IP for testing
+  tanium_server_2 = "10.0.0.2" # Dummy IP for testing
 
   ## Tanium Env Config
   tanium_env = {
