@@ -269,18 +269,18 @@ data "template_file" "htme" {
     sns_topic_arn_completion_incremental = var.sns_topic_arn_completion_incremental
     sns_topic_arn_completion_full        = var.sns_topic_arn_completion_full
 
-    install_tenable  = var.tenable_install
-    install_trend    = var.trend_install
-    install_tanium   = var.tanium_install
-    tanium_server_1  = var.tanium1
-    tanium_server_2  = var.tanium2
+    install_tenable  = var.install_tenable
+    install_trend    = var.install_trend
+    install_tanium   = var.install_tanium
+    tanium_server_1  = var.tanium_server_1
+    tanium_server_2  = var.tanium_server_2
     tanium_env       = var.tanium_env
     tanium_port      = var.tanium_port_1
     tanium_log_level = var.tanium_log_level
     tenant           = var.tenant
     tenantid         = var.tenantid
     token            = var.token
-    policyid         = var.policy_id
+    policyid         = var.policyid
 
   }
 }
