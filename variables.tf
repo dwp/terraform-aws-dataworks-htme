@@ -808,5 +808,5 @@ variable "policyid" {
 
 variable "tanium_prefix" {
   description = "Tanium Prefix for sg"
-  type        = string
+  type        = list(string)
 }
