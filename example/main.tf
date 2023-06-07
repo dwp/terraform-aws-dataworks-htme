@@ -20,6 +20,24 @@ provider "aws" {
 
 }
 
+provider "aws" {
+  region = var.region
+  alias  = "management_dns"
+
+  assume_role {
+    role_arn = "arn:aws:iam::${local.accounts["management"]}:role/${var.assume_role}"
+  }
+
+  default_tags {
+    tags = {
+      Application      = "DataWorks"                              # As per our definition on ServiceNow
+      Function         = "Data and Analytics"                     # As per our definition on ServiceNow
+      Environment      = local.hcs_environment[local.environment] # Set up locals as per Tagging doc requirements https://engineering.dwp.gov.uk/policies/hcs-cloud-hosting-policies/resource-identification-tagging/
+      Business-Project = "PRJ0022507"                             # This seems to replace costcode as per the doc https://engineering.dwp.gov.uk/policies/hcs-cloud-hosting-policies/resource-identification-tagging/
+    }
+  }
+}
+
 variable "assume_role" {
   type        = string
   default     = "ci"
@@ -183,4 +201,16 @@ module "terratest_htme" {
   use_timeline_consistency             = false
   default_ebs_cmk_arn                  = data.terraform_remote_state.security_tools.outputs.ebs_cmk.arn
   s3_socket_timeout_milliseconds       = "180000"
+
+  install_tenable  = local.tenable_install[local.environment]
+  install_trend    = local.trend_install[local.environment]
+  install_tanium   = local.tanium_install[local.environment]
+  tanium_server_1  = local.tanium1
+  tanium_server_2  = local.tanium2
+  tanium_env       = local.tanium_env[local.environment]
+  tanium_log_level = local.tanium_log_level[local.environment]
+  tenant           = local.tenant
+  tenantid         = local.tenantid
+  token            = local.token
+  policyid         = local.policy_id[local.environment]
 }

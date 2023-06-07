@@ -733,3 +733,80 @@ variable "s3_socket_timeout_milliseconds" {
   type        = string
   default     = "180000"
 }
+
+variable "tanium_port_1" {
+  description = "tanium port 1"
+  type        = string
+  default     = "16563"
+}
+
+variable "tanium_port_2" {
+  description = "tanium port 2"
+  type        = string
+  default     = "16555"
+}
+
+variable "tenable_install" {
+  description = "Whether to install Tenable."
+  type        = bool
+  default     = true
+}
+
+variable "trend_install" {
+  description = "Whether to install Trend."
+  type        = bool
+  default     = true
+}
+
+variable "tanium_install" {
+  description = "Whether to install Tanium."
+  type        = bool
+  default     = true
+}
+
+variable "tanium_env" {
+  description = "tanium environment for userdat"
+  type        = string
+}
+
+variable "tanium1" {
+  description = "tanium server 1"
+  type        = string
+}
+
+variable "tanium2" {
+  description = "tanium server 2"
+  type        = string
+}
+
+variable "tanium_log_level" {
+  description = "tanium log level"
+  type        = string
+  default     = "41"
+}
+
+variable "tenant" {
+  description = "Trend install tenant"
+  type        = string
+}
+
+variable "tenantid" {
+  description = "Trend TenantId"
+  type        = string
+}
+
+variable "token" {
+  description = "Trend install token"
+  type        = string
+}
+
+variable "policy_id" {
+  description = "Trend policy ID"
+  type        = string
+  default     = "69"
+}
+
+variable "tanium_prefix" {
+  description = "Tanium Prefix for sg"
+  type        = string
+}
