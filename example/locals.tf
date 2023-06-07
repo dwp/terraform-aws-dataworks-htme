@@ -131,9 +131,9 @@ locals {
   }
 
   ## Trend config
-  tenant   = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.tenant
-  tenantid = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.tenantid
-  token    = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.token
+  tenant   = "abcdefg" # Dummy #jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.tenant
+  tenantid = "abcdefg" # Dummy #jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.tenantid
+  token    = "abcdefg" # Dummy #jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.token
 
   policyid = {
     development    = "69"
