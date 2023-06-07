@@ -809,5 +809,4 @@ variable "policyid" {
 variable "tanium_prefix" {
   description = "Tanium Prefix for sg"
   type        = list(string)
-  default     = ["AZRebalance"]
-}
+
