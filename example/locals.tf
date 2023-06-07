@@ -95,8 +95,8 @@ locals {
 
   ## Tanium config
   ## Tanium Servers
-  tanium1 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_1
-  tanium2 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_2
+  tanium_server_1 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_1
+  tanium_server_2 = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).tanium[local.environment].server_2
 
   ## Tanium Env Config
   tanium_env = {
@@ -135,7 +135,7 @@ locals {
   tenantid = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.tenantid
   token    = jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary).trend.token
 
-  policy_id = {
+  policyid = {
     development    = "69"
     qa             = "69"
     integration    = "69"

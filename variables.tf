@@ -746,19 +746,19 @@ variable "tanium_port_2" {
   default     = "16555"
 }
 
-variable "tenable_install" {
+variable "install_tenable" {
   description = "Whether to install Tenable."
   type        = bool
   default     = true
 }
 
-variable "trend_install" {
+variable "install_trend" {
   description = "Whether to install Trend."
   type        = bool
   default     = true
 }
 
-variable "tanium_install" {
+variable "install_tanium" {
   description = "Whether to install Tanium."
   type        = bool
   default     = true
@@ -769,12 +769,12 @@ variable "tanium_env" {
   type        = string
 }
 
-variable "tanium1" {
+variable "tanium_server_1" {
   description = "tanium server 1"
   type        = string
 }
 
-variable "tanium2" {
+variable "tanium_server_2" {
   description = "tanium server 2"
   type        = string
 }
@@ -800,7 +800,7 @@ variable "token" {
   type        = string
 }
 
-variable "policy_id" {
+variable "policyid" {
   description = "Trend policy ID"
   type        = string
   default     = "69"
