@@ -2,7 +2,7 @@
 
 (
     # Import the logging functions
-    source /opt/shared/logging.sh
+    source /opt/shared/common_logging.sh
 
     install_tenable="$9"
     install_trend="${10}"
