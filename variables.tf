@@ -805,9 +805,3 @@ variable "policyid" {
   type        = string
   default     = "69"
 }
-
-variable "tanium_prefix" {
-  description = "Tanium Prefix for sg"
-  type        = list(string)
-  default     = ["dwp-*-aws-cidrs-*"]
-}
