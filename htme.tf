@@ -387,7 +387,6 @@ data "template_file" "htme_fallback" {
     tenantid         = var.tenantid
     token            = var.token
     policyid         = var.policyid
-    tanium_prefix    = var.tanium_prefix
   }
 }
 
