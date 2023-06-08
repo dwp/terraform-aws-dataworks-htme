@@ -195,5 +195,6 @@ module "terratest_htme" {
   tenantid         = local.tenantid
   token            = local.token
   policyid         = local.policyid[local.environment]
+  tanium_prefix    = "com.amazonaws.eu-west-1.s3" # Dummy prefix list for eu-west-1 for testing purposes only
 
 }
