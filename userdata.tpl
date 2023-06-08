@@ -170,7 +170,7 @@ chown htme:htme -R  /opt/htme
 chown htme:htme -R  /var/log/htme
 
 echo "Setup hcs services"
-/opt/dks/config_hcs.sh "${hcs_environment}" "${internet_proxy}" "${proxy_port}" "${tanium_server_1}" "${tanium_server_2}" "${tanium_env}" "${tanium_port}" "${tanium_log_level}" "${install_tenable}" "${install_trend}" "${install_tanium}" "${tenantid}" "${token}" "${policyid}" "${tenant}"
+/opt/htme/config_hcs.sh "${hcs_environment}" "${internet_proxy}" "${proxy_port}" "${tanium_server_1}" "${tanium_server_2}" "${tanium_env}" "${tanium_port}" "${tanium_log_level}" "${install_tenable}" "${install_trend}" "${install_tanium}" "${tenantid}" "${token}" "${policyid}" "${tenant}"
 
 echo "Shutdown if key store hasn't been created successfully"
 if [ ! -e /opt/htme/keystore.jks ] || [ ! -e /opt/htme/truststore.jks ]; then
