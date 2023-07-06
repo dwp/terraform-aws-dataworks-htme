@@ -18,7 +18,6 @@
     echo "$TECHNICALSERVICE"
     echo "$ENVIRONMENT"
 
-
     if [ "$install_tenable" = true ]; then
         echo "Configuring tenable agent"
         sudo /opt/nessus_agent/sbin/nessuscli agent link --key="$TENABLE_LINKING_KEY" --cloud --groups="$TECHNICALSERVICE"_"$ENVIRONMENT",TVAT --proxy-host="$2" --proxy-port="$3"
@@ -27,6 +26,11 @@
     fi
 
     if [ "$install_trend" = true ]; then
+        # Add VPC IP's to local host file with local DNS config for Trend
+        echo Adding VPC Endpoint IP to hosts file
+        vpce_ip1=$(dig +short "$2" | sed -n 1p | grep '^[.0-9]*$')
+        sudo sed -i -e '$a'"$vpce_ip1"'  'dwx-squid-proxy.local /etc/hosts
+
         echo Installing and configuring Trend Micro Agent
         # PROXY_ADDR_PORT and PROXY_CREDENTIAL define proxy for software download and Agent activation
         PROXY_ADDR_PORT="$2:$3"
