@@ -101,7 +101,7 @@ chmod u+x /opt/htme/htme_cloudwatch.sh
 
 echo "Download & install latest hbase-to-mongo-export service artifact"
 VERSION="${htme_version}"
-URL="s3://${s3_artefact_bucket_id}/hbase-to-mongo-export/hbase-to-mongo-export-$VERSION.jar"
+URL="s3://${s3_artefact_bucket_id}/hbase-to-mongo-export/gitlabci/hbase-to-mongo-export-$VERSION.jar"
 $(which aws) s3 cp $URL /opt/htme/htme.jar
 echo "JAR_VERSION: $VERSION"
 echo "JAR_DOWNLOAD_URL: $URL"
