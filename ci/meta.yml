@@ -88,7 +88,7 @@ meta:
           - -exc
           - |
             export TF_VAR_al2_hardened_ami_id=$(cat ../dw-al2-hardened-ami/id)
-            export TF_VAR_htme_version=$(cat ../htme-release/version)
+            export TF_VAR_htme_version=$(cat ../artefacts/htme-release/version)
             cp ../terraform-config/terraform.tfvars ./example
             cp ../terraform-config/terraform.tf ./example
             go mod init htme
@@ -100,7 +100,7 @@ meta:
           - name: terraform-aws-dataworks-htme
           - name: terraform-config
           - name: dw-al2-hardened-ami
-          - name: htme-release
+          - name: artefacts
 
     notify:
       on_success:
@@ -147,3 +147,60 @@ meta:
               text: |
                 The <https://ci.dataworks.dwp.gov.uk/builds/$BUILD_ID|$BUILD_JOB_NAME> stage for <https://ci.dataworks.dwp.gov.uk/teams/dataworks/pipelines/$BUILD_PIPELINE_NAME|*$BUILD_PIPELINE_NAME*> has been aborted.
               attachment_type: "default"
+
+    terraform-output-management:
+      task: terraform-output-management
+      .: (( inject meta.plan.terraform-common-config ))
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ((dataworks.terraform_repository))
+            version: ((dataworks.terraform_version))
+            tag: ((dataworks.terraform_version))
+        params:
+          TF_WORKSPACE: management
+        run:
+          path: sh
+          dir: aws-management-infrastructure
+          args:
+            - -exc
+            - |
+              terraform init
+              terraform workspace show
+              terraform output --json > ../terraform-output-management/outputs.json
+        inputs:
+          - name: aws-management-infrastructure
+        outputs:
+          - name: terraform-output-management
+
+    get-artefacts:
+      task: get-artefacts
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ((dataworks.docker_awscli_repository))
+            version: ((dataworks.docker_awscli_version))
+            tag: ((dataworks.docker_awscli_version))
+        params:
+          AWS_DEFAULT_REGION: ((dataworks.aws_region))
+        inputs:
+          - name: terraform-output-management
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              export AWS_DEFAULT_REGION
+              source /assume-role
+              set +x
+              ARTEFACT_BUCKET=`cat terraform-output-management/outputs.json | jq -r ".artefact_bucket.value.id"`
+              LATEST_ARTEFACT=`aws s3 ls s3://${ARTEFACT_BUCKET}/hbase-to-mongo-export/gitlabci/ | sort | tail -n 1 | awk '{print $4}')`
+              echo $LATEST_ARTEFACT
+              aws s3 cp s3://${ARTEFACT_BUCKET}/hbase-to-mongo-export/gitlabci/$LATEST_ARTEFACT ./artefacts/htme-release/$LATEST_ARTEFACT
+              echo $(ls ./artefacts/htme-release/*.jar | sed -e 's/^.*export-//' -e 's/.jar$//') > ./artefacts/htme-release/version
+        outputs:
+          - name: artefacts
